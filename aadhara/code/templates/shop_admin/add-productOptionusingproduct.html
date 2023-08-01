@@ -1,0 +1,307 @@
+{% extends 'shop_admin/base.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+            <h5 class="content-header-title mb-0 d-inline-block">ProductOption</h5>
+            <div class="breadcrumbs-top d-inline-block">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url('shopadmin:productlist')}}">Product list</a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                href="{% if product %}{{product.edit_url}}{% endif %}{% if object %}{{object.product.edit_url}}{% endif %}">Product</a>
+                        </li>
+                        {% if object %}
+                        <li class="breadcrumb-item active">Edit ProductOption
+                        </li>
+                        {% else %}
+                        <li class="breadcrumb-item active">Add ProductOption
+                        </li>
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-4 col-12 d-block d-md-none"><a
+                class="btn btn-warning btn-min-width float-md-right box-shadow-4 mr-1 mb-1"
+                href="chat-application.html"><i class="ft-mail"></i> Email</a></div>
+    </div>
+
+    <div class="content-body">
+        <!-- Basic form layout section start -->
+        <section id="horizontal-form-layouts">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" id="horz-layout-colored-controls">Add ProductOption</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collpase show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p>Product : {% if product %} {{product}} {% endif %} {% if object %}
+                                        {{object.product}} {% endif %}</p>
+
+                                </div>
+                                <form class="form form-horizontal" method="POST" novalidate>
+                                    <p>{% if form.non_field_error %}{{form.non_field_errors}}{% endif %}</p>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    {{form.product}}
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">SKU
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <span class="form-group position-relative">
+                                                            <span class="danger">{{form.sku.errors|striptags}}</span>
+                                                            {{form.sku}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Quantity
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.quantity.errors|striptags}}</span>
+                                                            {{form.quantity}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Priority
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.priority.errors|striptags}}</span>
+                                                            {{form.priority}}
+                                                            {{form.priority.help_text}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">List Price
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.list_price.errors|striptags}}</span>
+                                                            {{form.list_price}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Selling 
+                                                        Price
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.selling_price.errors|striptags}}</span>
+                                                            {{form.selling_price}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-start">
+                                                {% if object %} <a href="{{object.delete_url}}"
+                                                    class="btn btn-danger mr-1"><i class="ft-trash"></i>&nbsp; Delete
+                                                    record</a> {% endif %}
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-end">
+                                                {% if product %}
+                                                <a href="{{product.edit_url}}" class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                {% endif %}
+                                                {% if object %}
+                                                <a href="{{object.product.edit_url}}" class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                {% endif %}
+                                                <button type="submit" class="btn btn-primary mr-1">
+                                                    <i class="ft-plus"></i> Save and Add another
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> Save
+                                                </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% if object %}
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">ProductOption Attributes</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    <li><a href="{{object.addproductoptionattribute_url}}">Add ProductOption
+                                            Attributes</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <p class="card-text">ProductOptionAttributes : {{object}}</p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered base-style">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Product Option</th>
+                                                <th>Attribute</th>
+                                                <th>Value</th>
+                                                <th>label</th>
+                                                <th>Priority</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for pattr in object.attributes.all() %}
+                                            <tr>
+                                                <td><a href="{{pattr.edit_url}}">{{pattr.id}}</a></td>
+                                                <td>{{pattr.product_option}}</td>
+                                                <td>{{pattr.attribute}}</td>
+                                                <td><a href="{{pattr.edit_url}}">{{pattr.value}}</a></td>
+                                                <td>{{pattr.label}}</td>
+                                                <td>{{pattr.priority}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+        {% endif %}
+
+        {% if object %}
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">ProductOption Image</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    <li><a href="{{object.addproductoptionImage_url}}">Add ProductOption Image</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <p class="card-text">ProductOptionImage : {{object}}</p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered base-style">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Product Option</th>
+                                                <th>Image</th>
+                                                <th>Is_common</th>
+                                                <th>Priority</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for pattr in object.images.all() %}
+                                            <tr>
+                                                <td><a href="{{pattr.edit_url}}">{{pattr.id}}</a></td>
+                                                <td>{{pattr.product_option}}</td>
+                                                <td>
+                                                    <div class="media">
+                                                        <a class="media-left" href="#">
+                                                            {% if pattr.image %}
+                                                            <img src="{{pattr.image.url}}" alt="image"
+                                                                style="width: 64px;height: 64px;" />
+                                                            {% else %}
+                                                            <img src="app-assets/images/portrait/small/avatar-s-3.png"
+                                                                alt="image" style="width: 64px;height: 64px;" />
+                                                            {% endif %}
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td>{{pattr.is_common}}</td>
+
+                                                <td>{{pattr.priority}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

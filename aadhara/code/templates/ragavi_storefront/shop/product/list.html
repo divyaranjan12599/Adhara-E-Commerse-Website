@@ -1,0 +1,135 @@
+{% extends 'storefront/base.html' %}
+
+{% block main %}
+<div id="page-content">
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront//includes/breadcrumb.html' %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!--Sidebar-->
+            
+                <div class="col-12 col-sm-12 col-md-3 col-lg-3 sidebar filterbar">
+					{% include 'storefront/shop/product/includes/sidebar.html'%}
+                </div>
+            
+            <!--End Sidebar-->
+            <!--Main Content-->
+            <div class="col-12 col-sm-12 col-md-9 col-lg-9 main-col">
+                <div class="page-title"><h1>{{title}}</h1></div>
+                <div class="category-banner">
+                    <img src="assets/images/collection-banner/collection-banner.jpg" data-src="assets/images/collection-banner/collection-banner.jpg" alt=""/>
+                </div>
+                {% if category.placeholder %}
+                <div class="category-description">
+                    <p>{{category.placeholder}}</p>
+                </div>
+                {% endif %}
+                <div class="productList ">
+                    <!--Toolbar-->
+                    <button type="button" class="btn btn-filter d-block d-md-none d-lg-none"> Product Filters</button>
+                    <div class="toolbar">
+                        <div class="filters-toolbar-wrapper">
+                            <div class="row">
+                                <div class="col-4 col-md-4 col-lg-4 filters-toolbar__item collection-view-as d-flex justify-content-start align-items-center">
+                                                                                                                                                                                     
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-4 text-center filters-toolbar__item filters-toolbar__item--count d-flex justify-content-center align-items-center">
+                                    <span class="filters-toolbar__product-count">Showing: {{page_obj.paginator.count}} Results</span>
+                                </div>
+                                <div class="col-4 col-md-4 col-lg-4 text-right">
+                                    <div class="filters-toolbar__item">
+                                        <label for="SortBy" class="hidden">Sort</label>
+                                        <form name="sortby" method="GET" >
+                                            {% for k,v in request.GET.items() %}
+                                                {% if k != "sortby" and k != "page" %}
+                                                <input type="hidden" name="{{k}}" value="{{v}}" >
+                                                {%endif%}
+                                            {% endfor %}
+                                            <select name="sortby" onchange="this.form.submit()" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
+                                                <option value="title-ascending" selected="selected">Sort</option>
+                                                <option value="a2z" {% if request.GET.sortby == 'a2z' %}selected{% endif%} >Alphabetically, A-Z</option>
+                                                <option value="z2a" {% if request.GET.sortby == 'z2a' %}selected{% endif%} >Alphabetically, Z-A</option>
+                                                <option value="1to10" {% if request.GET.sortby == '1to10' %}selected{% endif%} >Price, low to high</option>
+                                                <option value="10to1" {% if request.GET.sortby == '10to1' %}selected{% endif%} >Price, high to low</option>
+                                                <option value="recent" {% if request.GET.sortby == 'recent' %}selected{% endif%} >Recent </option>
+                                            </select>
+                                        </form>
+                                        <input class="collection-header__default-sort" type="hidden" value="manual">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Toolbar-->
+                    
+                    {%if page_obj.paginator.count==0%}
+                    <div><h3>No results found</h3></div>
+                    {%else%}
+                    <div class="paginate">
+                        {% include 'storefront/shop/product/includes/list-ajax.html'%}
+                    </div>
+                    {%endif%}
+                    <!-- <div class="infinitpaginOuter">
+                        <div class="infinitpagin">	
+                            <a href="#" class="btn loadMore">Load More</a>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <!--End Main Content-->
+        </div>
+    
+    </div><!--End Body Container-->
+    
+</div><!--End Page Wrapper-->
+    {%endblock %}
+    
+{%block endscript %}
+
+
+    <script>
+        let page_number=1
+        function click_for_next(){
+            $('#load_more_btn').text("loading..");
+            $('#load_more_btn').attr("disabled", true);
+            page_number++;
+            $.ajax({
+                type: "get", 
+                url: window.location.href,
+                data: {"page": page_number, "pagination_ajax": true},
+                success: function (response) { 
+                    $('#page_no').html(jQuery(response).find('#page_no').html());
+                    document.getElementById("product_pages").innerHTML += jQuery(response).find('#product_pages').html(); 
+                    $('#product_pages').html(document.getElementById("product_pages").innerHTML)
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+function price_slider(){
+    $("#slider-range").slider({
+        range: true,
+        min: {{filters.min_price}},
+        max: {{filters.max_price}},
+        values: [{%if selected_filters.min_price%}{{selected_filters.min_price}}{%else%}{{filters.min_price}}{%endif%}, {%if selected_filters.max_price%}{{selected_filters.max_price}}{%else%}{{filters.max_price}}{%endif%}],
+        slide: function(event, ui) {
+            $("#amount").val("₹" + ui.values[0] + " - ₹" + ui.values[1]);
+        }
+    });
+    $("#amount").val("₹" + $("#slider-range").slider("values", 0) +
+    " - ₹" + $("#slider-range").slider("values", 1));
+}
+
+price_slider()
+
+    </script>
+
+{%endblock%}

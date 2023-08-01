@@ -1,0 +1,26 @@
+version: '3.2'
+
+services:
+    migrations:
+      image: techvins/repo:adh_prod
+      working_dir: /app
+      #command: python3 manage.py runserver 0.0.0.0:8000
+      volumes:
+        - "/data/aadhara/nginx/static:/app/nginx_static"
+        - "/data/aadhara/nginx/media:/app/media"
+        - "/data/host_tmp:/host_tmp"
+        - "/app/aadhara/code:/app"
+        - "/etc/localtime:/etc/localtime"
+
+      environment:
+        - "PYTHONUNBUFFERED=1"
+      
+      # volumes:
+      #   - ${NGINX_DATA}/sitemap:/var/www/html/sitemap/
+      expose:
+        - "8000"
+
+networks:
+  default:
+    external:
+      name: corevision-overlay

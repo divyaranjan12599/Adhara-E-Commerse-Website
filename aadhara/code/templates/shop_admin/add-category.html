@@ -1,0 +1,188 @@
+{% extends 'shop_admin/base.html' %} {% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Category</h3>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+            <div class="breadcrumbs-top float-md-right">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Category list</a>
+                        </li>
+                        <li class="breadcrumb-item active">Category
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- Basic CKEditor start -->
+        <section id="horizontal-form-layouts">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" id="horz-layout-colored-controls">Add Category</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collpase show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p>{% if form.non_field_error %}{{form.non_field_errors}}{% endif %}</p>
+                                </div>
+                                <form class="form form-horizontal" method="POST" novalidate>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Name
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">     
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.name.errors|striptags}} </span>
+                                                            {{form.name}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput2">Parent </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.parent.errors|striptags}}</span>
+                                                            {{form.parent}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput2">
+                                                        Priority*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.priority.errors|striptags}}</span>
+                                                            {{form.priority}}
+                                                            {{form.priority.help_text}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput2">
+                                                        placeholder*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.placeholder.errors|striptags}}</span>
+                                                            {{form.placeholder}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="basic">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">SizeChart</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <span class="danger">{{form.size_chart.errors}}</span>
+                                <div class="form-group">
+                                    {{form.size_chart}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Shipping_and_returns</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <span class="danger">{{form.shipping_and_returns.errors}}</span>
+                                <div class="form-group">
+                                    {{form.shipping_and_returns}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-12">
+                    <ul class="pagination justify-content-start">
+                    {% if object %} <a href="{{object.delete_url}}"
+                                                    class="btn btn-danger mr-1"><i class="ft-trash"></i>&nbsp; Delete
+                                                    record</a> {% endif %}
+                    </ul>
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                </div>
+                <div class="col-xl-4 col-lg-12">
+                    <ul class="pagination justify-content-end">
+                        <a href="{{url('shopadmin:categorylist')}}" class="btn btn-danger mr-1">
+                            <i class="ft-x"></i> Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary mr-1">
+                            <i class="ft-plus"></i> Save and Add another
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="la la-check-square-o"></i> Save
+                        </button>
+
+                    </ul>
+                </div>
+            </div>
+            </form>
+        </section>
+        <!-- Basic CKEditor end -->
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+version: '3.2'
+
+services:
+    django:
+      build: .
+      stdin_open: true
+      tty: true
+      ports:
+        - "8000:8000"
+        - "5678:5678"
+      working_dir: /app
+      command: python3 manage.py runserver 0.0.0.0:8000
+      volumes:
+        - ..:/app
+        - techvins_aadhara_media:/app/media
+      environment:
+        - "PYTHONUNBUFFERED=1"
+      expose:
+        - "8000"
+      depends_on:
+        - aadhara_mariadb
+        
+      
+
+    aadhara_mariadb:
+      image: mariadb:10.2
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: techvins
+        MYSQL_USER: myusername
+        MYSQL_HOST: localhost
+        MYSQL_PASSWORD: mypassword
+      volumes:
+       - techvins_aadhara_mariadb:/var/lib/mysql
+volumes:
+  techvins_aadhara_mariadb:
+    external: true
+
+  techvins_aadhara_media:
+    external: true
+
+    

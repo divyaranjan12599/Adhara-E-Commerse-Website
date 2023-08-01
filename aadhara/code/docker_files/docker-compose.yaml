@@ -1,0 +1,56 @@
+version: '3.2'
+
+services:
+    aadhara:
+      image: techvins/repo:adh_prod
+      working_dir: /app
+      #command: python3 manage.py runserver 0.0.0.0:8000
+      volumes:
+        - "/data/aadhara/nginx/static:/app/nginx_static"
+        - "/data/aadhara/nginx/media:/app/media"
+        - "/data/host_tmp:/host_tmp"
+        - "/etc/localtime:/etc/localtime"
+
+      environment:
+        - "PYTHONUNBUFFERED=1"
+      
+      # volumes:
+      #   - ${NGINX_DATA}/sitemap:/var/www/html/sitemap/
+      expose:
+        - "8000"
+
+    aadhara_celery:
+      image: techvins/repo:adh_prod
+      working_dir: /app
+      command: celery -A ecommerce worker -l info
+      volumes:
+        - "/data/aadhara/nginx/static:/app/nginx_static"
+        - "/data/aadhara/nginx/media:/app/media"
+        - "/data/host_tmp:/host_tmp" 
+      environment:
+        - "PYTHONUNBUFFERED=1"
+      # volumes:
+      #   - ${NGINX_DATA}/sitemap:/var/www/html/sitemap/
+      expose:
+        - "8000"
+
+
+    adh_imgproxy:
+      image: darthsim/imgproxy
+      volumes:
+        - /data/aadhara/nginx/static/:/var/www/html/static
+        - /data/aadhara/nginx/media/:/var/www/html/static/media
+      environment:
+          - 1=ssssssss1
+          - IMGPROXY_LOCAL_FILESYSTEM_ROOT=/var/www/html
+          - IMGPROXY_ENFORCE_WEBP=true
+          - IMGPROXY_DEVELOPMENT_ERRORS_MODE=true
+          - IMGPROXY_MAX_SRC_RESOLUTION=50
+    adh_redis:
+      image: redis
+      volumes:
+        - /data/aadhara/redis/data/:/data
+networks:
+  default:
+    external:
+      name: corevision-overlay

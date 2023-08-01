@@ -1,0 +1,55 @@
+{% extends 'storefront/base.html' %}
+{% block main %}
+
+    
+    <div id="page-content">        
+        <!--Body Container-->
+        <!--Breadcrumbs-->
+        <div class="breadcrumbs-wrapper">
+            <div class="container">
+                {% include 'storefront/includes/breadcrumb.html' %}
+            </div>
+        </div>
+        <!--End Breadcrumbs-->
+		<div class="page-title"><h1>Aadhara Blogs</h1></div>
+        <div class="container">
+        	<div class="row">
+                <!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                    <div class="blog--list-view blog--grid-load-more no-border">
+						<div class="row">
+                            {% for blog in blogs %}
+							<div class="col-12 col-sm-6 col-md-6 col-lg-4">
+								<div class="article"> 
+									<!-- Article Image --> 
+									<div class="post-img"><a class="article_featured-image" href="{{(url('blogs:blog_detail',kwargs={'id':blog.id}))}}"><img style="width: 330px;height: 270px;" class="blur-up ls-is-cached lazyloaded" data-src="{{blog.thumbnail.url}}" src="{{blog.thumbnail.url}}" alt="{{blog.title}}"></a></div>
+									<div class="post-content">
+										<h2 class="h3"><a href="{{(url('blogs:blog_detail',kwargs={'id':blog.id}))}}">{{blog.title}}</a></h2>
+										<ul class="publish-detail">
+                                            <li><i class="anm anm-user-al" aria-hidden="true"></i> Posted by: {{blog.author.name}}</li>                      
+											<li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{date_format(blog.created)}}</time></li>
+										</ul>
+                                        <p>Tags:
+                                            {% for tag in blog.tags.all()%}
+                                                #{{tag}}
+                                            {% endfor %}
+                                        </p>
+										<div class="rte"> 
+											<p>{{blog.content|truncate|safe}}</p>
+											 </div>
+										<p><a href="{{(url('blogs:blog_detail',kwargs={'id':blog.id}))}}" class="btn btn-secondary btn--small">Read more</a></p>
+									</div>
+								</div>
+							</div>
+                            {% endfor %}
+							
+						</div>
+                       
+                    </div>
+                </div>
+                <!--End Main Content-->
+            </div>
+        </div>
+    </div><!--End Page Wrapper-->
+    
+{% endblock %}

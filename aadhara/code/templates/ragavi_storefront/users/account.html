@@ -1,0 +1,88 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{%block subcontent%}
+
+<div id="subpage-content">   
+    <!--Body Container-->
+        <div class="container">
+        	<div class="page-title"><h1>My Account</h1></div>
+            <div class="dashboard-upper-info">
+            	<div class="row align-items-center no-gutters">
+                <div class="col-xl-3 col-lg-3 col-md-12">
+                   
+                    <div class="d-single-info">
+                        <p class="user-name">Hello <span class="font-weight-600"><a href="#" class="__cf_email__" data-cfemail="f38a9c86819e929a9fb39a9d959c">{{email}}</a></span></p>
+                        <p>(not <a href="#" class="__cf_email__" data-cfemail="a6dfc9d3d4cbc7cfcae6cfc8c0c9">{{email}}</a>? <a class="font-weight-600" href="{{url('logout')}}">Log Out</a>)</p>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-12">
+                    <div class="d-single-info">
+                        <p>Need Assistance? Customer service at.</p>
+                        <p><a href="#" >{{site_name}}</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12">
+                    <div class="d-single-info">
+                        <p>E-mail them at </p>
+                        <p><a href ="mailto:{{contact_email}}" class="__cf_email__" data-cfemail="8cfff9fcfce3fef8ccf5e3f9feffe5f8e9a2efe3e1">{{contact_email}}</a></p>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-lg-2 col-md-12">
+                    <div class="d-single-info text-lg-center">
+                        <a class="view-cart" href="{{url('shop:cart')}}"><i class="icon anm anm-bag-l"></i> View Cart</a>
+                    </div>
+                </div>
+            </div>
+	        </div>
+            <div class="row mb-5">
+                <div class="col-xl-2 col-lg-2 col-md-12 md-margin-20px-bottom">
+                    <!-- Nav tabs -->
+                    <ul class="nav flex-column dashboard-list" role="tablist">
+                        <li><a class="nav-link active" data-toggle="tab" href="#dashboard">Dashboard</a></li>
+                        <li><a class="nav-link" href="{{url('users:orders')}}">Orders</a></li>
+                        <li><a class="nav-link" href="{{url('users:wishlist')}}">Wishlist</a></li>                       
+                        <li><a class="nav-link" href="{{url('users:myaddresses')}}">Addresses</a></li>
+                        <li><a class="nav-link" data-toggle="tab" href="#account-details">Account details</a></li>
+                        <li><a class="nav-link" href="{{url('users:editprofile')}}">Edit profile</a></li>
+                        <li><a class="nav-link" href="{{url('logout')}}">logout</a></li>
+
+                        
+                    </ul>
+                    <!-- End Nav tabs -->
+                </div>
+
+                
+                <div class="col-xs-10 col-lg-10 col-md-12">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard-content padding-30px-all md-padding-15px-all" style="">
+                        <!-- Dashboard -->
+                        <div id="dashboard" class="tab-pane active show">
+                            <h3>Dashboard </h3>
+                            <p>From your account dashboard. you can easily check &amp; view your
+                                <a class="text-decoration-underline" href="{{url('users:orders')}}">recent orders</a>, manage your
+                                <a class="text-decoration-underline" href="{{url('users:myaddresses')}}">shipping and billing addresses</a> and
+                                <a class="text-decoration-underline" href="{{url('users:editprofile')}}">edit your password and account details.</a>
+                            </p>
+
+                            {%if user.can_view_admin_actions()%}
+                            <h3>Ragavi Admin Dashboard </h3>
+                            <p>As admin of Ragavi, you have following actions available
+                                <li>
+                                    <a class="text-decoration-underline" href="{{url('shopadmin:shipment')}}">Order Shipments</a>.
+                                </li>
+                                <li>
+                                    <a class="text-decoration-underline" href="/manage-admin/">Go to Admin Page</a>.
+                                </li>
+                            </p>
+                            {%endif%}
+                        </div>
+                        <!-- End Dashboard -->
+                    </div>
+                    <!-- End Tab panes -->
+                </div>
+
+                
+            </div>
+        </div><!--End Body Container-->
+    </div><!--End Page Wrapper-->
+{%endblock%}

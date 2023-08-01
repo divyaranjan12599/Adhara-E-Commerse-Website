@@ -1,0 +1,580 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>{{html_head.title}} | {{site_name}}</title>
+<meta name="description" content="{{html_head.description}}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Favicon -->
+
+<link rel="shortcut icon" href="{{static('storefront/assets/images/favicon.png')}}">
+
+<!-- Plugins CSS -->
+<link rel="stylesheet" href="{{static('storefront/assets/css/plugins.css')}}">
+<!-- Main Style CSS -->
+<link rel="stylesheet" href="{{static('storefront/assets/css/style.css')}}">
+<link rel="stylesheet" href="{{static('storefront/assets/css/responsive.css')}}">
+<script type="text/javascript">
+    var  add_to_cart_url = "{{ url('api:addtocartapi') }}";
+    var  wlcurl = "{{ url('api:wishlistapi') }}";
+
+</script>
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "WebSite",
+      "name": "Adhara",
+      "url": "adhara.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "adhara.com/search?key=value{search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+</script>
+
+{%block additionalheader%}
+
+{%endblock%}
+{% include 'storefront/core_includes/common_header.html' %}
+</head>
+<body class="template-index index-demo2">
+<div id="pre-loader">
+    <img src="{{static('storefront/assets/images/loader.gif')}}" alt="Loading..." />
+</div>
+<div class="page-wrapper">
+    
+    
+   
+    
+    <div class="page-wrapper">
+        <div class="notification-bar mobilehide">
+            <a href="#" class="notification-bar__message"><b>OFFER</b> FREE SHIPPING ON ALL ORDERS!</a>
+            <span class="close-announcement"><i class="anm anm-times-l" aria-hidden="true"></i></span>
+        </div>
+        {% include 'storefront/includes/header-and-menu.html' %}
+        <!--End Header-->
+        <div id="message" class="container tab-pane fade active show">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="text-center alert alert-success">
+                    <span style="text-align: center;">{{message|safe}}</span>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <!--End Breadcrumbs-->
+    {% block main %}
+    {%endblock %}
+    <!--Footer-->
+        <div class="footer footer-2">
+            <div class="footer-top clearfix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                            <h4 class="h4">About</h4>
+                            <ul>
+                                <li><a href="{{url('static_page',kwargs={'static_page': 'about-us'})}}">About Us</a></li>
+                                <li><a href="{{url('core:contactus')}}">Contact Us</a></li>
+                                <li><a href="{{url('users:account')}}">My Account</a></li>
+                                
+                                
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                            <h4 class="h4">Information</h4>
+                            <ul>
+                               
+                                <li><a href="{{url('static_page',kwargs={'static_page': 'terms-and-conditions'})}}">Terms &amp; Condition</a></li>
+                                <li><a href="{{url('static_page',kwargs={'static_page': 'privacy-policy'})}}">Privacy Policy</a></li>
+                                <li><a href="{{url('static_page',kwargs={'static_page': 'return-policy'})}}">Orders and Returns</a></li>
+
+                            </ul>
+                        </div>
+                       
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                            <h4 class="h4">Stay Connected</h4>
+                            <ul class="list--inline social-icons">
+                                {% if social_facebook %}<li><a href="{{social_facebook}}" target="_blank"><i class="icon icon-facebook"></i> Facebook</a></li>{% endif %}
+                                {% if social_twitter %}<li><a href="{{social_twitter}}" target="_blank"><i class="icon icon-twitter"></i> Twitter</a></li>{% endif %}
+                                {% if social_pinterest %}<li><a href="{{social_pinterest}}" target="_blank"><i class="icon icon-pinterest"></i> Pinterest</a></li>{% endif %}
+                                {% if social_instagram %}<li><a href="{{social_instagram}}" target="_blank"><i class="icon icon-instagram"></i> Instagram</a></li>{% endif %}
+                                {% if social_linkedin %}<li><a href="{{social_linkedin}}" target="_blank"><i class="icon icon-linkedin"></i> LinkedIn</a></li>{% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 about-us-col">
+                            <h4 class="h4">Contact Us</h4>
+                            <p><i class="anm anm-map-marker-al" aria-hidden="true"></i> {{ contact_address }}</p>
+                            <p><i class="anm anm-phone-l" aria-hidden="true"></i> {{ contact_mobile }}</p>
+                            <p><i class="anm anm-envelope-l" aria-hidden="true"></i> <a href ="mailto:{{contact_email}}"> {{contact_email}}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom clearfix">
+                <div class="container">
+                    <div class="copytext">
+                        &copy; Copyright {{Year}} | Aadhara
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--End Footer-->
+    {#
+    <!--Scoll Top-->
+    <span id="site-scroll"><i class="icon anm anm-arw-up"></i></span>
+    <!--End Scoll Top-->
+    #}
+     <!--MiniCart Drawer-->
+     <div class="minicart-right-drawer modal right fade" id="minicart-drawer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="cart-drawer" class="block block-cart">
+                    <a href="javascript:void(0);" class="close-cart" data-dismiss="modal" aria-label="Close"><i class="anm anm-times-r"></i></a>
+                    <h4>Your cart ({{cart.product_count()}} Items)</h4>
+                    <div class="minicart-content">
+                        <ul class="clearfix">
+                            {% for cartproduct in cart.cartproducts.all() %}
+                            <li class="item clearfix">
+                                <a class="product-image" href="{{cartproduct.product.url()}}">
+                                    <img src="{{ img_tag(alt='',url_only='yes', size="90/90",src=cartproduct.product_option.image().url)}}" alt="product">
+                                </a>
+                                <div class="product-details">
+                                    <a href="#" class="remove removefromcart"  data-product-id="{{cartproduct.product_id}}" data-product-option-id="{{cartproduct.product_option_id}}" title="Remove From Cart"><i class="anm anm-times-sql" aria-hidden="true"></i></a>
+                                    <a class="product-title" href="{{cartproduct.product.url()}}">{{cartproduct.product.name}}</a>
+                                    <div class="variant-cart">{{cartproduct.product_option.subname}}</div>
+                                    <div class="wrapQtyBtn">
+                                        <div class="qtyField">
+                                            <input type="text"  disabled name="quantity" value="{{cartproduct.quantity}}" class="qty">
+                                        </div>
+                                    </div>
+                                    <div class="priceRow">
+                                        <div class="product-price">
+                                            <span class="money">{{cartproduct.price_display()}}</span>
+                                        </div>
+                                     </div>
+                                </div>
+                            </li>
+                            {%endfor%}
+                            
+                        </ul>
+                    </div>
+                    <div class="minicart-bottom">
+                        <div class="subtotal list">
+                            <span>Tax:</span>
+                            <span class="product-price">{{price_format(cart.tax)}}</span>
+                        </div>
+                        <div class="subtotal">
+                            <span>Total:</span>
+                            <span class="product-price">{{price_format(cart.total_price)}}</span>
+                        </div>
+                        <a href="{{url('shop:checkout')}}"><button type="button" class="btn proceed-to-checkout">Proceed to Checkout</button></a>
+                        <a href="{{url('shop:cart')}}"><button type="button" class="btn btn-secondary cart-btn">View Cart</button></a>
+                    </div>
+                </div>
+    		</div>
+    	</div>
+    </div>
+    <!--End MiniCart Drawer-->
+    
+    <!--Quickview Popup-->
+    <div class="loadingBox"><div class="anm-spin"><i class="anm anm-spinner4"></i></div></div>
+    <div class="modalOverly"></div>
+    <div id="quickView-modal" class="mfp-with-anim mfp-hide">
+        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <div id="slider">
+                    <!-- model thumbnail -->
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- image slide carousel items -->
+                        <div class="carousel-inner">
+                            <!-- slide 1 -->
+                            <div class="item carousel-item active" data-slide-number="0">
+                                <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                            </div>
+                            <!-- End slide 1 -->
+                            <!-- slide 2 -->
+                            <div class="item carousel-item" data-slide-number="1">
+                                <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                            </div>
+                            <!-- End slide 3 -->
+                            <!-- slide 2 -->
+                            <div class="item carousel-item" data-slide-number="2">
+                                <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                            </div>
+                            <!-- End slide 3 -->
+                            <!-- slide 4 -->
+                            <div class="item carousel-item" data-slide-number="3">
+                                <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                            </div>
+                            <!-- End slide 4 -->
+                            <!-- slide 5 -->
+                            <div class="item carousel-item" data-slide-number="4">
+                                <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                            </div>
+                            <!-- End slide 4 -->
+                        </div>
+                        <!-- End image slide carousel items -->
+                        <!-- model thumbnail image -->
+                        <div class="model-thumbnail-img">
+                            <!-- model thumbnail slide -->
+                            <ul class="carousel-indicators list-inline">
+                                <!-- slide 1 -->
+                                <li class="list-inline-item active">
+                                    <a id="carousel-selector-0" class="selected" data-slide-to="0" data-target="#myCarousel">
+                                        <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                                    </a>
+                                </li>
+                                <!-- End slide 1 -->
+                                <!-- slide 2 -->
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-1" data-slide-to="1" data-target="#myCarousel">
+                                        <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                                    </a>
+                                </li>
+                                <!-- End slide 2 -->
+                                <!-- slide 3 -->
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-2" class="selected" dataslide-to="2" data-target="#myCarousel">
+                                        <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                                    </a>
+                                </li>
+                                <!-- End slide 3 -->
+                                <!-- slide 4 -->
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-3" data-slide-to="3" data-target="#myCarousel">
+                                        <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                                    </a>
+                                </li>
+                                <!-- End slide 4 -->
+                                <!-- slide 5 -->
+                                <li class="list-inline-item">
+                                    <a id="carousel-selector-4" data-slide-to="4" data-target="#myCarousel">
+                                        <img data-src="{{static('storefront/assets/images/product-images/product1.jpg')}}" src="{{static('storefront/assets/images/product-images/product1.jpg')}}" alt="" title="">
+                                    </a>
+                                </li>
+                                <!-- End slide 5 -->
+                            </ul>
+                            <!-- End model thumbnail slide -->
+                            <!-- arrow button -->
+                            <a class="carousel-control left" href="#myCarousel" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+                            <a class="carousel-control right" href="#myCarousel" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+                            <!-- End arrow button -->
+                        </div>
+                        <!-- End model thumbnail image -->
+                    </div>
+                </div>
+            </div>
+            <div id="newsletter-modal" class="style2 mfp-with-anim mfp-hide">
+                <div class="newsltr-tbl">
+                    <div class="newsltr-img small--hide"><img src="{{static('storefront/assets/images/newsletter_modal.png')}}" alt=""></div>
+                    <div class="newsltr-text text-center">
+                        <div class="wraptext">
+                            <h2>Join Our Mailing List</h2>
+                            <p class="sub-text">Stay Informed! Monthly Tips, Tracks and Discount. </p>
+                            <form action="{{url('core:subscribe')}}" method="post" id="newsletter_popup_form">
+                                <div class="input-group">
+                                        <input type="email" class="input-group__field newsletter-input" id="newsletter_popup_email" name="EMAIL" value="" placeholder="Email address" required>
+                                        <span class="input-group__btn">
+                                            <button type="submit" class="btn newsletter__submit" name="commit" id="newsletter_popup_subscribe"><span class="newsletter__submit-text--large">Subscribe</span></button>
+                                        </span>
+                                    </div>
+                                </form>
+                            <ul class="list--inline social-icons">
+                                {%include 'storefront/shop/product/includes/social_sharing.html' %}
+        
+                            </ul>
+                            <p class="checkboxlink">
+                                <input type="checkbox" id="dontshow">
+                                  <label for="dontshow">Don't show this popup again</label>
+                            </p>
+                      </div>
+                    </div>
+                </div>
+                    <button id="popup_close" title="Close (Esc)" type="button" class="mfp-close">×</button>
+            </div>
+            <!--End Newsletter Popup-->
+        
+        
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="product-brand"><a href="#">Charcoal</a></div>
+                <h2 class="product-title">Product Quick View Popup</h2>
+                <div class="product-review">
+                    <div class="rating">
+                        <i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i><i class="font-13 fa fa-star"></i>
+                    </div>
+                    <div class="reviews"><a href="#">5 Reviews</a></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-stock"> <span class="instock">In Stock</span> <span class="outstock hide">Unavailable</span> </div>
+                    <div class="product-sku">SKU: <span class="variant-sku">19115-rdxs</span></div>
+                </div>
+                <div class="pricebox">
+                    <span class="price old-price">$900.00</span>
+                    <span class="price">$800.00</span>
+                </div>
+                <div class="sort-description">Avone Multipurpose Bootstrap 4 Html Template that will give you and your customers a smooth shopping experience which can be used for various kinds of stores such as fashion.. </div>
+                <form method="post" action="#" id="product_form--option" class="product-form">
+                    <div class="product-options">
+                        <div class="swatch clearfix swatch-0 option1">
+                            <div class="product-form__item">
+                                <label class="label">Color:<span class="required">*</span> <span class="slVariant">Red</span></label>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-black" type="radio" name="option-0" value="Black">
+                                    <label class="swatchLbl small black" for="swatch-black" title="Black"></label>
+                                </div>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-blue" type="radio" name="option-0" value="blue">
+                                    <label class="swatchLbl small blue" for="swatch-blue" title="Blue"></label>
+                                </div>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-red" type="radio" name="option-0" value="Blue">
+                                    <label class="swatchLbl small red" for="swatch-red" title="Red"></label>
+                                </div>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-pink" type="radio" name="option-0" value="Pink">
+                                    <label class="swatchLbl color small pink" for="swatch-pink" title="Pink"></label>
+                                </div>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-orange" type="radio" name="option-0" value="Orange">
+                                    <label class="swatchLbl color small orange" for="swatch-orange" title="Orange"></label>
+                                </div>
+                                <div class="swatch-element color">
+                                    <input class="swatchInput" id="swatch-yellow" type="radio" name="option-0" value="Yellow">
+                                    <label class="swatchLbl color small yellow" for="swatch-yellow" title="Yellow"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swatch clearfix swatch-1 option2">
+                            <div class="product-form__item">
+                                <label class="label">Size:<span class="required">*</span> <span class="slVariant">XS</span></label>
+                                <div class="swatch-element xs">
+                                <input class="swatchInput" id="swatch-1-xs" type="radio" name="option-1" value="XS">
+                                <label class="swatchLbl medium" for="swatch-1-xs" title="XS">XS</label>
+                                </div>
+                                <div class="swatch-element s">
+                                <input class="swatchInput" id="swatch-1-s" type="radio" name="option-1" value="S">
+                                <label class="swatchLbl medium" for="swatch-1-s" title="S">S</label>
+                                </div>
+                                <div class="swatch-element m">
+                                <input class="swatchInput" id="swatch-1-m" type="radio" name="option-1" value="M">
+                                <label class="swatchLbl medium" for="swatch-1-m" title="M">M</label>
+                                </div>
+                                <div class="swatch-element l">
+                                <input class="swatchInput" id="swatch-1-l" type="radio" name="option-1" value="L">
+                                <label class="swatchLbl medium" for="swatch-1-l" title="L">L</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-action clearfix">
+                            <div class="quantity">
+                                <div class="wrapQtyBtn">
+                                    <div class="qtyField">
+                                        <a class="qtyBtn minus" href="javascript:void(0);"><i class="fa anm anm-minus-r" aria-hidden="true"></i></a>
+                                        <input type="text" id="Quantity" name="quantity" value="1" class="product-form__input qty">
+                                        <a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>                                
+                            <div class="add-to-cart">
+                                <button type="button" class="btn button-cart">
+                                    <span>Add to cart</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="wishlist-btn">
+                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"><i class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Add to Wishlist</span></a>
+                </div>
+                <div class="share-icon">
+                    <span>Share:</span>
+                    <ul class="list--inline social-icons">
+                        <li><a href="#" target="_blank"><i class="icon icon-facebook"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="icon icon-twitter"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="icon icon-pinterest"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="icon icon-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="icon icon-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+    <!--End Quickview Popup-->
+    
+        <!-- Including Jquery -->
+        <script src="{{static('storefront/assets/js/vendor/jquery-3.3.1.min.js')}}"></script>
+        <script src="{{static('storefront/assets/js/vendor/js.cookie.js')}}"></script>
+        <!-- Including Javascript -->
+        <script src="{{static('storefront/assets/js/plugins.js')}}"></script>
+        <script src="{{static('storefront/assets/js/main.js')}}"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/default-skin/default-skin.min.css" rel="stylesheet">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.1/photoswipe-ui-default.min.js"></script>
+      
+        
+        <script>
+            function csrfSafeMethod(method) {
+		// these HTTP methods do not require CSRF protection
+		return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+	$.ajaxSetup({
+		beforeSend: function(xhr, settings) {
+			if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+				xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+			}
+		}
+	});
+ 
+        function newsletter_popup(){
+         date=new Date();
+            var show_popup = '{{show_popup}}'
+            
+
+            if( (show_popup=='yes') && (( $.cookie('popup_seen') !='true' ) && ($.cookie("active_recently") !='true'))) {
+                setTimeout( function() {
+                    
+                    $.magnificPopup.open( {
+                        items: {
+                            src: '#newsletter-modal'
+                        }
+                        , type:'inline', removalDelay:300, mainClass: 'mfp-zoom-in'
+                    }
+                    );
+                }
+                , 2000);
+            }
+            else{
+                $.cookie("active_recently", 'true',{
+                'expires':{{popup_return_days}},'path':'/'
+            } )
+            }
+            $.magnificPopup.instance.close=function () {
+
+                
+                date.setTime(date.getTime() + (30 * 1000));
+                if($("#dontshow").prop("checked")==true) {
+                    $.cookie("popup_seen", 'true',2100 )
+            }
+                $.magnificPopup.proto.close.call(this);
+            }
+        }
+        // newsletter_popup();
+   
+
+
+    function newsletter(email,form){
+        var url = form.attr('action');
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {'email':email}, // serializes the form's elements.
+            success: function(data)
+            {
+                alert(data['message']); 
+                if(data['close_popup']){
+                    $("#popup_close").click()
+                    $.cookie("popup_seen", 'true',2100 )
+                }
+            }
+            });
+    }
+
+    $('#newsletter_popup_subscribe').on('click',function(e){
+        e.preventDefault();
+        var form = $('#newsletter_popup_form');
+        var email = $('#newsletter_popup_email').val()
+        newsletter(email,form)
+        
+  });
+
+    $('#newsletter_subscribe').on('click',function(e){
+       
+        var form = $('#newsletter_form');
+        var email = $('#newsletter_email').val()
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        emailReg = emailReg.test(email);
+        if(!emailReg){
+            alert('Enter valid Email')
+        }
+        else{
+            newsletter(email,form)
+
+        }
+        
+        $('#newsletter_email').val('')
+  });
+ 
+	$('input[type=password]').parent().append('<a href="#" class="transformPassword"><i class="icon-eye"></i>View Password</a>');
+    $('.transformPassword').on('click',function(){
+                var id=$(this).siblings("input").prop('id')
+                var target_element = document.getElementById(id);
+                if (target_element.type === "password") {
+                    target_element.type = "text";
+                } else {
+                    target_element.type = "password";
+                }
+
+            })
+
+        </script>
+
+        <script>
+            
+            $(function(){
+                var $pswp = $('.pswp')[0],
+                    image = [],
+                    getItems = function() {
+                        var items = [];
+                        $('.lightboximages a').each(function() {
+                            var $href   = $(this).attr('href'),
+                                $size   = $(this).data('size').split('x'),
+                                item = {
+                                    src : $href,
+                                    w: $size[0],
+                                    h: $size[1]
+                                }
+                                items.push(item);
+                        });
+                        return items;
+                    }
+                var items = getItems();
+            
+                $.each(items, function(index, value) {
+                    image[index]     = new Image();
+                    image[index].src = value['src'];
+                });
+                $('.prlightbox').on('click', function (event) {
+                    event.preventDefault();
+                  
+                    var $index = $(".active-thumb").parent().attr('data-slick-index');
+                    $index++;
+                    $index = $index-1;
+            
+                    var options = {
+                        index: $index,
+                        bgOpacity: 0.9,
+                        showHideOpacity: true
+                    }
+                    var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+                    lightBox.init();
+                });
+            });
+            
+        </script>
+        
+        <script>
+            {% include "storefront/includes/js_functions.js" %}
+        </script>
+</div>
+{% include 'storefront/includes/whatsapp.html' %}
+{%block endscript%}
+{%endblock%}
+</body>
+</html>

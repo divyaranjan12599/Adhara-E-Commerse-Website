@@ -1,0 +1,31 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{%block subcontent%}
+<div id="subpage-content">
+    <!--Page Title with Image-->
+    <div class="page-title"><h1>Saved Address</h1></div>
+    <!--End Page Title with Image-->
+    <div class="tab-content dashboard-content padding-30px-all md-padding-15px-all" style="">
+        {%if address%}
+        <!-- My addresses -->
+        <div id="address" class="tab-pane  active show">
+            <div class="text-center ">
+                <p><b>{{address.name}}</b></p>
+                <p>{{address.address}}, {{address.city}}, {{address.state}} {{address.pincode}}</p>
+                <p>Phone:{{address.mobile}}</p><br>
+            </div>
+            <div class="text-center ">
+                <a href="{{url('users:updateaddress')}}?address_id={{address.id}}"><input type="button" class="btn mb-3" value="Edit Address"></a>
+            </div>
+        </div>
+        {%else%}
+        <div id="addoredit" class="tab-pane  active show">
+            <div class="text-center ">
+                <h5>You don't have any saved addresses</h5>
+                <a href="{{url('users:updateaddress')}}"><input type="button" class="btn mb-3" value="Add Address"></a>
+            </div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

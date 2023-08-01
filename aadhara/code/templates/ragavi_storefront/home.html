@@ -1,0 +1,329 @@
+{% extends 'storefront/base.html' %}
+
+{% block main %}
+    <div id="page-content">
+        <!--Home slider-->
+        <div class="slideshow slideshow-wrapper">
+            <div class="home-slideshow">
+                <div class="slide">
+                    <div class="blur-up lazyload">
+                        <img class="blur-up lazyload desktop-hide" data-src="{{static('storefront/assets/images/banner/banner2.png')}}" src="{{static('storefront/assets/images/banner/banner2.png')}}" alt=" Start Selling Online Successfully" title=" Start Selling Online Successfully" />
+                        <img class="blur-up lazyload mobile-hide" data-src="{{static('storefront/assets/images/banner/banner2-mobile.png')}}" src="{{static('storefront/assets/images/banner/banner2-mobile.png')}}" alt=" Start Selling Online Successfully" title=" Start Selling Online Successfully" />
+                        <div class="slideshow__text-wrap slideshow__overlay left">
+                            <div class="slideshow__text-content bottom">
+                                <div class="wrap-caption anim-tru left style1">
+                                    <p class="mega-small-title">Perfect and Elegant</p>
+                                    <h2 class="h1 mega-title slideshow__title">Women Dresses </h2>
+                                    <span class="btn">Shop now</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Home slider-->
+        
+        <!--Store Feture-->
+        <div class="store-info style2 store-info-section small-pd d-none d-sm-none d-md-block d-lg-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <ul class="display-table store-info style2">
+                            <li class="display-table-cell">
+                                <a href="#"><i class="anm anm-phone-call-l" aria-hidden="true"></i><h5>Call Us Anytime</h5> <span class="sub-text"> <span>{{CONTACT_MOBILE}}</span></span></a>
+                            </li>
+                            <li class="display-table-cell">
+                                <i class="anm anm-truck-line" aria-hidden="true"></i><h5>Free Shipping</h5> <span class="sub-text"><span>On All Orders</span></span>
+                            </li>
+                            <li class="display-table-cell">
+                                <i class="anm anm-undo-r" aria-hidden="true"></i><h5>Free Returns</h5> <span class="sub-text"> <span>15-days free return policy.</span> </span>
+                            </li>
+                            <li class="display-table-cell">
+                                <i class="anm anm-lock-al" aria-hidden="true"></i><h5>Secured Payments</h5> <span class="sub-text"> <span>We accept all major credit cards.</span> </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Store Feture-->
+        
+        <!--Body Container-->
+        <div class="container">
+            <!--Image Banner-->
+            <div class="section imgBanners style2 no-pb-section">
+                <div class="section-header">
+                    <h2>Shop The Look</h2>
+                    <p>The easiest and fastest way to create grid banners.</p>
+                </div>
+                {% if homepage_categories.count()>3 %}
+
+                <div class="collection-banners">
+                   
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 img-banner-item">
+                            <div class="imgBanner-grid-item">
+                                <div class="inner btmleft">
+                                    <a href="{{homepage_categories[0].category.url()}}">
+                                        <span class="img">
+                                            <img width="600" height="500" class="blur-up lazyload" data-src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="600/500",src=homepage_categories[0].image)}}" />
+                                        </span>
+                                        <span class="ttl"><span class="tt-small">{{homepage_categories[0].category.name}}</span></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 img-banner-item">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 img-banner-item">
+                                    <div class="imgBanner-grid-item">
+                                        <div class="inner btmleft">
+                                            <a href="{{homepage_categories[1].category.url()}}">
+                                                <span class="img">
+                                                    <img class="blur-up lazyload" width="300" height="500" src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="300/500",src=homepage_categories[1].image)}}" />
+                                                </span>
+                                                <span class="ttl"><span class="tt-small">{{homepage_categories[1].category.name}}</span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 img-banner-item last">
+                                    <div class="imgBanner-grid-item">
+                                        <div class="inner btmleft">
+                                            <a href="{{homepage_categories[2].category.url()}}">
+                                                <span class="img">
+                                                    <img width="300" height="240" class="blur-up lazyload" width="" data-src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="300/250",src=homepage_categories[2].image)}}"/>
+                                                </span>
+                                                <span class="ttl"><span class="tt-small">{{homepage_categories[2].category.name}}</span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="imgBanner-grid-item">
+                                        <div class="inner btmleft">
+                                            <a href="{{homepage_categories[3].category.url()}}">
+                                                <span class="img">
+                                                    <img width="300" height="240"  class="blur-up lazyload" data-src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="300/250",src=homepage_categories[3].image)}}"/>
+                                                </span>
+                                                <span class="ttl"><span class="tt-small">{{homepage_categories[3].category.name}}</span></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            <!--End Image Banner-->
+                
+            <!--New Arrivals-->
+            <div class="section product-slider tab-slider-product no-pb-section">
+                <div class="section-header">
+                    <h2>New Arrivals</h2>
+                <p>Shop our new arrivals</p>
+                </div>
+                <div class="tabs-listing">
+                    <!-- <ul class="tabs clearfix">
+                        <li class="active" rel="tab1">Women</li>
+                        <li rel="tab2">Men</li>
+                        <li rel="tab3" class="tab_last">Accessories</li>
+                    </ul> -->
+                    <div class="tab_container">
+                        <h3 class="tab_drawer_heading d_active" rel="tab1">Women <i class="anm anm-angle-down-r" aria-hidden="true"></i></h3>
+                        <div id="tab1" class="tab_content grid-products">
+                            <div class="productSlider">
+                                {%for product in latest_products %}
+                                {% with option=product.get_option(None)%}
+                                <div class="col-12 item">
+                                    <!-- start product image -->
+                                    <div class="product-image">
+                                        <!-- start product image -->
+                                        <a href="{{product.url()}}" class="product-img">
+                                            <!-- image -->
+                                            <img class="primary blur-up lazyload"  data-src="{{ img_tag(alt='',url_only='yes', size="400/400",src=option.image().url)}}" src="" alt="" title="">
+                                            <!-- End image -->
+                                            <!-- Hover image -->
+                                            <img class="hover blur-up lazyload"   data-src="{{ img_tag(alt='',url_only='yes', size="400/400",src=option.image().url)}}" src="" alt="" title="">
+                                            <!-- End hover image -->
+                                            {%if product.is_on_sale%}
+                                            <!-- product label -->
+                                            
+                                            <div class="product-labels"><span class="lbl on-sale">Sale</span></div>
+                                            <!-- End product label -->
+                                            {%endif%}
+                                        </a>
+                                        <!-- end product image -->
+
+                                        <!--Product Button-->
+                                        <div class="button-set style2">
+                                            <ul>
+                                                <li>
+                                                    <!--Cart Button-->
+                                                    <form class="add" action="cart-variant1.html" method="post">
+                                                        <button class="btn-icon btn btn-addto-cart addtocart {% if not product.userperm_add_to_cart %} disabled {% endif %}" data-product-id='{{product.id}}' data-product-option-id='{{option.id}}' type="button" tabindex="0">
+                                                            <i class="icon anm anm-cart-l"></i>
+                                                            <span class="tooltip-label">Add to Cart</span>
+                                                        </button>
+                                                    </form>
+                                                    <!--end Cart Button-->
+                                                </li>
+                                                <li>
+                                                    <!--Wishlist Button-->
+                                                    <div class="wishlist-btn">
+                                                        <a class="btn-icon wishlist add-to-wishlist addtowishlist" href="#" data-product-option-id='{{option.id}}'>
+                                                            <i class="icon anm anm-heart-l"></i>
+                                                            <span class="tooltip-label">Add To Wishlist</span>
+                                                        </a>
+                                                    </div>
+                                                    <!--End Wishlist Button-->
+                                                </li>
+                                             
+                                            </ul>
+                                        </div>
+                                        <!--End Product Button-->
+                                    </div>
+                                    <!-- end product image -->
+                                    <!--start product details -->
+                                    <div class="product-details text-center">
+                                        <!-- product name -->
+                                        <div class="product-name">
+                                            <a href="product-layout1.html">{{product.name}}</a>
+                                        </div>
+                                        <!-- End product name -->
+                                        <!-- product price -->
+                                        <div class="product-price">
+                                            <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+                                                <span id="ProductPrice-product-template"><span class="money">{{price_format(option.price)}}</span></span>
+                                            <s id="ComparePrice-product-template"><span class="money">{{option.price_display()}}</span></s>
+
+                                                        <span class="discount-badge"> <span class="devider">|</span>&nbsp;
+                                                        <span class="off">(<span>{{option.get_discount_percentage}}</span>% Off)</span>
+                                                        </span>
+                                                        </span>
+                                        </div>
+                                        <!-- End product price -->
+                                        <!--Product Review-->
+                                        <div class="product-review">
+                                            <i class="font-13 fa fa-star"></i>
+                                            <i class="font-13 fa fa-star"></i>
+                                            <i class="font-13 fa fa-star"></i>
+                                            <i class="font-13 fa fa-star"></i>
+                                            <i class="font-13 fa fa-star"></i>
+                                        </div>
+                                        <!--End Product Review-->
+                                       
+                                       
+                                        <!-- {% if product.options.count() > 0 %}
+                                        {% for k in product.get_option_attributes(option) %}
+                                        {% if k.attribute__name.lower() == 'color' %}
+
+                                        <ul class="swatches">
+                                            {% for value in  option.get_product_attribute_values(k.attribute_id) %}
+                                            <li class="swatch small rounded {{value.value}}"><span class="tooltip-label">{{value.value}}</span></li>
+                                            {% endfor %}
+                                        </ul>
+
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% endif %} -->
+                                       
+                                    </div>
+                                    <!-- End product details -->
+                                </div>  
+                                {%endwith%}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End New Arrivals-->
+        </div>
+        
+        <!--Parallax Banner-->
+        <div class="section parallax-banner-style1">
+            <div class="hero hero--exlarge hero__overlay bg-size">
+                <img class="bg-img" src="{{static('storefront/assets/images/banner/home-background.png')}}" alt="">
+                <div class="hero__inner">
+                    <div class="container">
+                        <div class="wrap-text center text-small font-bold">
+                            <span>HOT COLLECTION</span>
+                            <h2 class="h2 mega-title">FALL IN THE TOWN</h2>
+                            <div class="rte-setting mega-subtitle">Try the latest and trendiest fall collection of Kurtis, ranging from ethnic to modern and loungewear. Our cotton and rayon Kurtis sustains the heat of even Rajasthan, and knitwear Kurtis tailored to beat the cold of Kashmir like anything with their thick and modish knits. Choose us, and we'll make sure you never look back
+
+                            </div>
+                            <a href="#" class="btn">View Collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Parallax Banner-->
+        
+        <!--Featured Content-->
+        {% if homepage_categories.count()>1  %}
+        {% with category = homepage_categories.order_by('priority') %}
+        {% set best_seller = category[0] %}
+        {% set day_to_night = category[1] %}
+        <div class="section style1 featured-content no-pt-section">
+            <div class="container">
+                <div class="row display-table">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 display-table-cell">
+                        <img  src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="600/800",src=best_seller.image)}}" alt="" title="" />
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 display-table-cell">
+                        <div class="featured-text right">
+                            <h2>Shop the Best Sellers</h2>
+                            {% if best_seller.category.placeholder %}
+                            <p>{{best_seller.category.placeholder}}</p>
+                            {% endif %}
+                            <a href="{{best_seller.category.url()}}" class="btn">Shop It Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row display-table featured-content-bg">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 display-table-cell">
+                        <div class="featured-text left">
+                            <h2>Day to Night</h2>
+                            {% if day_to_night.category.placeholder %}
+                            <p>{{day_to_night.category.placeholder}}</p>
+                            {% endif %}
+                            <a href="{{day_to_night.category.url()}}" class="btn">View Collection</a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 display-table-cell">
+                        <img  src="{{MEDIA_URL}}{{ img_tag(url_only='yes',alt='', size="600/600",src=day_to_night.image)}}" alt="" title="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Featured Content-->
+        {% endwith %}
+        {% endif %}
+       
+        
+        <!--Newsletter Section-->
+        <div class="section newsletter-section">
+            <div class="section-header">
+                <h2>Newsletter Subscribe</h2>
+                <p>Sign up to stay in the loop. Receive updates, access to exclusive deals, and more.</p>
+            </div>
+            <div class="display-table">
+                <div class="display-table-cell newsletter-form">
+                    <form action="{{url('core:subscribe')}}" method="post" id="newsletter_form">
+                    <div class="input-group">
+                            <input type="email" class="input-group__field newsletter-input" id="newsletter_email" name="EMAIL" value="" placeholder="Email address" required>
+                            <span class="input-group__btn">
+                                <button type="submit" class="btn newsletter__submit" name="commit" id="newsletter_subscribe"><span class="newsletter__submit-text--large">Subscribe</span></button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Newsletter Section-->
+    </div><!--End Page Wrapper-->
+    {%endblock %}
+    

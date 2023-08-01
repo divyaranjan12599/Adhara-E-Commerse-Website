@@ -1,0 +1,99 @@
+{% extends 'shop_admin/base.html' %} {% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">GallaryImage</h3>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+            <div class="breadcrumbs-top float-md-right">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">GallaryImage</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">GallaryImage list</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a data-action="collapse"><i class="ft-minus"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-action="reload"><i class="ft-rotate-cw"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-action="expand"><i class="ft-maximize"></i></a>
+                                    </li>
+
+                                    <a href="{{url('shopadmin:addgalleryimage')}}"><i class="ft-plus"></i>&nbsp;Add GallaryImage
+                                    </a>
+                                    {% set reset_url = url('shopadmin:galleryimagelist') %}
+                                    {% include 'shop_admin/includes/filter-form.html' %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered base-style">
+                                        <thead>
+                                            <tr>
+                                                
+                                                <th>ID</th>
+                                                <th>title</th>
+                                                <th>Image</th>
+                                                <th>Priority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for gimg in galleryimage_list %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{gimg.edit_url}}">{{gimg.id}}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{gimg.edit_url}}">{{gimg.title}}</a>
+                                                </td>
+                                                <td>
+                                                    <div class="media">
+                                                        <div class="media-left pr-1">
+                                                            <span class="avatar avatar-sm rounded-circle">
+                                                                <img src="{{gimg.image.url}}"
+                                                                    alt="avatar">
+                                                                <i></i>
+                                                            </span>
+                                                        </div>
+                                                        <div class="media-body media-middle">
+                                                            <span
+                                                                class="media-heading text-bold-700">GallaryImage</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>{{gimg.priority}}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% include 'shop_admin/includes/paginated.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+    </div>
+</div>
+{% endblock %}

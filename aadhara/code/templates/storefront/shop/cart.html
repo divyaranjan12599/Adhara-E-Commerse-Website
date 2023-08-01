@@ -1,0 +1,183 @@
+{% extends 'storefront/base.html' %}
+{% block main %}
+    
+    <div id="page-content">        
+        <!--Body Container-->
+        <!--Breadcrumbs-->
+        <div class="breadcrumbs-wrapper">
+        	<div class="container">
+            	{% include 'storefront/includes/breadcrumb.html' %}
+            </div>
+        </div>
+        <!--End Breadcrumbs-->
+        <!--Page Title with Image-->
+        <div class="page-title"><h1>Cart</h1></div>
+        <!--End Page Title with Image-->
+        <div class="container">
+            <div class="row">
+				<!--Main Content-->
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                	<!-- <div class="alert alert-success text-uppercase" role="alert">
+						<i class="icon anm anm-truck-l icon-large"></i> &nbsp;<strong>Congratulations!</strong> You've got free shipping!
+					</div> -->
+                   
+                    <form action="#" method="post" class="cart style2">
+                		<table>
+                            <thead class="cart__row cart__header">
+                                <tr>
+                                    <th colspan="2" class="text-center">Product</th>
+                                    <th class="text-center">Price</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Total</th>
+                                    <th class="action">&nbsp;</th>
+                                </tr>
+                            </thead>
+                    		<tbody>
+                                {% if cart and cart.product_count() %}
+                                {% for cartproduct in cart.cartproducts.all() %}
+                                <tr class="cart__row border-bottom line1 cart-flex border-top">
+                                    <td class="cart__image-wrapper cart-flex-item">
+                                        <a target="_BLANK" href="{{cartproduct.product.url()}}"><img class="cart__image"  width=90 height="90" src="{{ img_tag(alt='',url_only='yes', size="90/90",src=cartproduct.product_option.image().url)}}" alt="Elastic Waist Dress - Navy / Small"></a>
+                                    </td>
+                                    <td class="cart__meta small--text-left cart-flex-item">
+                                        <div class="list-view-item__title">
+                                            <a target="_BLANK" href="{{cartproduct.product.url()}}">{{cartproduct.product.name}}</a>
+                                        </div>
+                                        
+                                        <div class="cart__meta-text">
+                                            {% for attr in cartproduct.product_option.attributes.all() %}
+                                            {{ attr.attribute.name}}:{{ attr.value}} <br>
+                                             {% endfor %}
+
+                                            
+                                        </div>
+                                    </td>
+                                    <td class="cart__price-wrapper cart-flex-item text-center">
+                                        <span class="money">{{price_format(cartproduct.unit_price)}}</span>
+                                    </td>
+                                    <td class="cart__update-wrapper cart-flex-item text-center">
+                                        <div class="cart__qty text-center">
+                                            <div class="qtyField">
+                                                <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" value="{{cartproduct.quantity}}" pattern="[0-9]*">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="small--hide cart-price text-center">
+                                        <div><span class="money">{{price_format(cartproduct.total_price)}}</span></div>
+                                    </td>
+                                    <td class="text-center small--hide"><a href="#" class="btn btn--secondary cart__remove" title="Remove tem"><i class="icon icon anm anm-times-l removefromcart" data-product-id="{{cartproduct.product_id}}" data-product-option-id="{{cartproduct.product_option_id}}"></i></a></td>
+                                </tr>
+                                {% endfor %}
+                                {% endif %}
+                            </tbody>
+                    		<tfoot>
+                                <tr>
+                                    <td colspan="3" class="text-left"><a href="/" class="btn btn--link btn--small cart-continue"><i class="anm anm-chevron-cir-left"></i> Continue shopping</a></td>
+                                    <td colspan="3" class="text-right">
+                                    	<button onClick="window.location.reload();" type="button" class="btn btn--link btn--small cart-continue ml-2"><i class="anm anm-sync-ar"></i> Update Cart</button>
+                                      
+                                    </td>
+                                </tr>
+                            </tfoot>
+                    </table> 
+                    </form>                         	          
+               	</div>
+                <div class="container mt-4">
+                        
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
+                            <div class="solid-border">	
+                              <div class="row border-bottom pb-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Subtotal</span>
+                                <span class="col-12 col-sm-6 text-right"><span class="money">{{price_format(cart.total_without_tax)}}</span></span>
+                              </div>
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Tax</span>
+                                <span class="col-12 col-sm-6 text-right">{{price_format(cart.tax)}}</span>
+                              </div>
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title">Shipping</span>
+                                <span class="col-12 col-sm-6 text-right">Free </span>
+                              </div>
+                              {%if cart.discount_coupon and cart.discount_coupon.discount_type_is_percentage() %}
+                               <div class="row border-bottom pb-2 pt-2">
+                                 <span class="col-12 col-sm-6 cart__subtotal-title">Cart Discount:</span>
+                                 <span class="col-12 col-sm-6 text-right">{{cart.discount_coupon.discount_value}}%</span>
+                               </div>
+                              {%elif cart.discount_coupon%}
+                               <div class="row border-bottom pb-2 pt-2">
+                                 <span class="col-12 col-sm-6 cart__subtotal-title">Cart Discount:</span>
+                                 <span class="col-12 col-sm-6 text-right">{{cart.discount_coupon.discount_value}}</span>
+                               </div>
+                               {%endif%}
+                              <div class="row border-bottom pb-2 pt-2">
+                                <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Grand Total</strong></span>
+                                <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">{{price_format(cart.total_price)}}</span></span>
+                              </div>
+                              {% if cart.discount_coupon %}
+                              <p class="cart_tearm">Applied Coupon : {{cart.discount_coupon.name}} <a href="?remove_coupon=yes">Remove coupon</a></p>
+                              {% endif %}
+                               {% if cart and cart.can_apply_coupon() %}
+                               <p class="cart_tearm">
+                                <form action="" method="POST" class="coupon-form">
+                               <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                               {% for discount_coupon in cart.get_available_discount_coupons()%}
+                               <div class="custom-control custom-radio">
+                                    <input {% if cart.discount_coupon == discount_coupon %}checked{%endif%} type="radio" id="customRadio{{loop.index}}" name="code" value="{{discount_coupon.code}}" class="custom-control-input">
+                                    <label class="custom-control-label padding-l-10" style="text-size:10px;"for="customRadio{{loop.index}}">{{discount_coupon.name}} Eligilble for the cart ammount more than Rs. {{price_format(discount_coupon.min_cart_amount)}}
+                                        </label>
+                                </div>
+                               {% endfor %}
+                              </p>
+                              </form>
+                              {% endif %}
+                              <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
+                              <p class="cart_tearm">
+                                <label>
+                                  <input type="checkbox" checked disabled name="tearm" class="checkbox" value="tearm" required>
+                                  I agree with the terms and conditions
+								</label>
+                              </p>
+                              <a href="{{url('shop:checkout')}}"><input type="button" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Proceed To Checkout"></a>
+                              <div class="paymnet-img"><img src="{{static('storefront/assets/images/payment-img.jpg')}}" alt="Payment"></div>
+                              <p><a href="#;">Cherckout with Multiple Addresses</a></p>
+                            </div>
+        
+                        </div>
+                    </div>
+                </div>
+				<!--End Main Content-->
+			</div>
+        
+        </div><!--End Body Container-->
+
+        
+    </div><!--End Page Wrapper-->
+    
+    <!--Scoll Top-->
+    <span id="site-scroll"><i class="icon anm anm-arw-up"></i></span>
+    <!--End Scoll Top-->
+    
+     <!-- Including Jquery -->
+     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
+     <script src="assets/js/vendor/js.cookie.js"></script>
+     <!-- Including Javascript -->
+     <script src="assets/js/plugins.js"></script>
+     <script src="assets/js/main.js"></script>
+</div>
+</body>
+</html>
+
+{% endblock %}
+{%block endscript%}
+     <script type='text/javascript'>
+        $(document).ready(function() {
+        $('input[name="code"]').change(function(){
+            $('.coupon-form').submit();
+        });
+        });
+        {% if Invalid_coupon %}
+        alert("Please check the coupon and cart amount")
+        {% endif %}
+    </script>
+{%endblock%}
+

@@ -1,0 +1,77 @@
+{% extends 'storefront/base.html' %}
+
+{%block main%}<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+    <!--End Breadcrumbs-->
+    <!--Page Title with Image-->
+    <div class="page-title"><h1>Create An Account</h1></div>
+    <!--End Page Title with Image-->
+    <div class="container">
+        <!--Main Content-->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 box">	
+                <div class="mb-4">
+                    <h3>Personal Information</h3>
+                    {%if message%}
+                    <div class="alert alert-danger">
+                        <span>{{message|safe}}</span>
+                    </div>
+                    {%endif%}
+                   <form method="post" action="" accept-charset="UTF-8" class="contact-form">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="CustomerFirstName">Name <span class="required">*</span></label>
+                                    <input id="CustomerFirstName" type="text" name="name" required placeholder="Enter Full Name" class=""  {%if request.POST.name %}value="{{request.POST.name}}"{%endif%} autocorrect="off" autocapitalize="off" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="CustomerFirstName">Mobile <span class="required">*</span></label>
+                                    <input id="CustomerFirstName" type="text" name="mobile" required placeholder="Enter Mobile" class=""   {%if request.POST.mobile %}value="{{request.POST.mobile}}"{%endif%} autocorrect="off" autocapitalize="off" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="CustomerFirstName">Email </label>
+                                    <input id="CustomerFirstName" type="email" name="email" placeholder="Enter Email" class=""   {%if request.POST.email %}value="{{request.POST.email}}"{%endif%} autocorrect="off" autocapitalize="off" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">                                	
+                                <div class="form-group">
+                                    <label for="CustomerPassword">Password <span class="required">*</span></label>
+                                    <input id="CustomerPassword" type="password" name="password" required placeholder="Enter Password" class=""   autocorrect="off" autocapitalize="off" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="CustomerConfirmPassword">Confirm Password <span class="required">*</span></label>
+                                    <input id="CustomerConfirmPassword" type="Password" name="password2" required placeholder="Confirm Password" class=""   autocorrect="off" autocapitalize="off" autofocus>                        	
+                                </div>
+                            </div>
+                          </div>
+                        <div class="row">
+                            <div class="text-left col-12 col-sm-12 col-md-6 col-lg-6">
+                                <input type="submit" class="btn mb-3" value="Submit">
+                            </div>
+                            <div class="text-right col-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="{{url('users:login')}}">« Back To Login</a>
+                            </div>
+                         </div>
+                 </form>
+                </div>
+               </div>
+        </div>
+        <!--End Main Content-->
+    </div><!--End Body Container-->
+    
+</div><!--End Page Wrapper-->
+
+{%endblock%}

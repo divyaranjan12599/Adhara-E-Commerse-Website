@@ -1,0 +1,62 @@
+{% extends 'shop_admin/base.html' %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2">
+            <h3 class="content-header-title mb-0 d-inline-block">Delete</h3>
+        </div>
+        <div class="content-header-right col-md-4 col-12 d-block d-md-none"><a
+                class="btn btn-warning btn-min-width float-md-right box-shadow-4 mr-1 mb-1"
+                href="chat-application.html"><i class="ft-mail"></i> Email</a></div>
+    </div>
+    <div class="content-body">
+        <section id="drag-area">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h1 class="card-title">Are you sure?<span class="text-muted"></span></h1>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a data-action="close"><i class="ft-x"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <p class="card-subtitle">Are you sure you want to delete the discount coupon
+                                    "{{object}}"? All of the following related items will be deleted:</p>
+                                <p class="badge badge-pill badge-info">Summary</p>
+                                <ul>
+                                    <li>{{object.__class__.__name__}} : 1</li>
+                                </ul>
+                                <p class="badge badge-pill badge-primary">Object</p>
+                                <ul>
+                                    <li>{{object.__class__.__name__}} : {{object}}</li>
+                                </ul>
+                                <form method="POST">
+                                    <div class="form-group">
+                                        <!-- basic buttons -->
+                                        <input type="hidden" name="csrfmiddlewaretoken" value="{{csrf_token}}">
+                                        <button type="submit" class="btn btn-danger btn-min-width mr-1 mb-1"
+                                            value="submit">Yes, I'm sure</button>
+                                        <a href="{{object.edit_url}}"
+                                            class="btn btn-secondary btn-min-width mr-1 mb-1">No,take me back</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock %}

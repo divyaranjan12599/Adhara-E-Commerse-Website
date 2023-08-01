@@ -1,0 +1,74 @@
+{% extends 'storefront/base.html' %}
+
+{% block main %}
+<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+   
+        <!--Page Title with Image-->
+        <div class="page-title"><h1>My Wishlit</h1></div>
+        <!--End Page Title with Image-->
+        <div class="container">
+            <div class="row">
+				<!--Main Content-->
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+                	<form action="#">
+                        <div class="wishlist-table table-content table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="product-name text-center alt-font">Remove</th>
+                                    	<th class="product-price text-center alt-font">Images</th>
+                                        <th class="product-name alt-font">Product</th>
+                                        <th class="product-price text-center alt-font">Unit Price</th>
+                                        <th class="stock-status text-center alt-font">Stock Status</th>
+                                        <th class="product-subtotal text-center alt-font">Add to Cart</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for wishlist_item in wishlist_items%}
+                                    {%with option=wishlist_item.product_option%}
+                                    <tr>
+                                        <td class="product-remove text-center" valign="middle"><a href="#" class="removefromwishlist" data-product-option-id='{{option.id}}'><i class="icon icon anm anm-times-l"></i></a></td>
+                                    	<td class="product-thumbnail text-center">
+                                            <a href="{{option.product.url()}}" class="product-img">
+                                                {% with image=option.all_images()[0]%}
+                                                <img class="primary blur-up lazyload" data-src="{{ img_tag(alt='',url_only='yes', size="290/290",src=image.image.url)}}" width="100px" src="{{ img_tag(alt='',url_only='yes', size="290/290",src=image.image.url)}}" alt="image" title="product">
+                                                {%endwith%}
+                                                </a>
+                                        </td>
+                                        <td class="product-name"><h4 class="no-margin"> <a href="{{option.product.url()}}">{{option.product.name}}</a></h4></td>
+                                        <td class="product-price text-center">{% include 'storefront/shop/product/includes/price.html' %}</td>
+                                        <td class="stock text-center">
+                                            {%if option.in_stock()%}
+                                            <span class="in-stock">in stock</span>
+                                            {%else%}
+                                            <span class="out-stock">Out Of stock</span>
+                                            {%endif%}
+                                        </td>
+                                        
+                                        <td class="product-subtotal text-center"><button class=" btn btn-small addtocart {% if not option.product.userperm_add_to_cart %} disabled {% endif %}" data-product-id='{{option.product.id}}' data-product-option-id='{{option.id}}' type="button" tabindex="0">
+                                            Add To Cart</button></td>
+                                        
+                                    </tr>
+                                    {%endwith%}
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>                   
+               	</div>
+				<!--End Main Content-->
+			</div>
+        
+        </div><!--End Body Container-->
+        
+    </div><!--End Page Wrapper-->
+{%endblock%}

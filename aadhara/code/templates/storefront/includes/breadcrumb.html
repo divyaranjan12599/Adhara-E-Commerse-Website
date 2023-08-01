@@ -1,0 +1,12 @@
+{%if breadcrumb%}
+<div class="breadcrumbs">
+    {% for item in breadcrumb %}
+        {% if loop.last %}
+            <span>{{item.text}}</span>
+        {%else%}
+            <a href="{{item.url}}" title="{{item.text}}">{{item.text}}</a> 
+            <span aria-hidden="true">|</span> 
+        {%endif%}
+    {%endfor%}
+</div>
+{%endif%}

@@ -1,0 +1,184 @@
+{% extends 'shop_admin/base.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2">
+            <h3 class="content-header-title mb-0 d-inline-block">Add HomepageSlider</h3>
+        </div>
+        <div class="content-header-right col-md-4 col-12 d-block d-md-none"><a
+                class="btn btn-warning btn-min-width float-md-right box-shadow-4 mr-1 mb-1"
+                href="chat-application.html"><i class="ft-mail"></i> Email</a></div>
+    </div>
+
+    <div class="content-body">
+        <!-- Basic form layout section start -->
+        <section id="horizontal-form-layouts">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" id="horz-layout-colored-controls">Add HomepageSlider</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collpase show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p>{% if form.non_field_error %}{{form.non_field_errors}}{% endif %}</p>
+                                </div>
+                                <form class="form form-horizontal" method="POST" enctype="multipart/form-data" novalidate>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Name
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.name.errors|striptags}}</span>
+                                                            {{form.name}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput2">
+                                                        Enabled</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                           <div class="form-check">
+                                                            <span class="danger">{{form.enabled.errors|striptags}}</span>
+                                                            {{form.enabled}}
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">URL*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.url.errors|striptags}}</span>
+                                                            {{form.url}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">Titile*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.title.errors|striptags}}</span>
+                                                            {{form.title}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">Subtitle*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.subtitle.errors|striptags}}</span>
+                                                            {{form.subtitle}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">Button-Text*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.button_text.errors|striptags}}</span>
+                                                            {{form.button_text}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">Priority*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.priority.errors|striptags}}</span>
+                                                            {{form.priority}}
+                                                            {{form.priority.help_text}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control"
+                                                        for="userinput3">Image*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.image.errors|striptags}}</span>
+                                                            {{form.image}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-start">
+                                                {% if object %} <a href="{{object.delete_url}}"
+                                                    class="btn btn-danger mr-1"><i class="ft-trash"></i>&nbsp; Delete
+                                                    record</a> {% endif %}
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-end">
+                                                <a href="{{url('shopadmin:homepagesliderlist')}}"
+                                                    class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                <button type="submit" class="btn btn-primary mr-1">
+                                                    <i class="ft-plus"></i> Save and Add another
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> Save
+                                                </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

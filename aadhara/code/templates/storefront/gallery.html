@@ -1,0 +1,113 @@
+{% extends 'storefront/base.html' %}
+
+
+{%block main%}
+<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            <div class="breadcrumbs"><a href="/" title="Back to the home page">Home</a> <span aria-hidden="true">|</span> <span>Lookbook Gallery</span></div>
+        </div>
+    </div>
+    <!--End Breadcrumbs-->
+    <div class="container">
+        <div class="page-title"><h1>LookBook Gallery    </h1></div>
+        <!--Category Masonary Grid-->
+        <div class="collection-banners style0">
+            <div class="grid-masonary lookbook collection-page-grid">
+                <div class="grid-sizer col-sm-6 col-md-4 col-lg-4"></div>
+                    <div class="row">
+                        {%for image in images %}
+                        <div class="col-12 col-sm-6 col-md-4 col-lg-4 ms-item grid-lookbook">
+                            <div class="collection-grid-item gallery">
+                                <span class="zoom-img zoom"><i class="anm anm-expand"></i></span>
+                                <a class="zoom" href="{{ img_tag(alt='',url_only='yes', size="800/800",src=image.image.url)}}" data-size="800x802">
+                                    <img class="blur-up lazyload" data-src="{{ img_tag(alt='',url_only='yes', size="800/800",src=image.image.url)}}" src="{{ img_tag(alt='',url_only='yes', size="800/800",src=image.image.url)}}" alt="" title=" " />
+                                </a>
+                                <div class="lookbook-caption">
+                                    <a href="#;">  
+                                        <span class="text-1"><b>{{image.title}}</b></span>
+                                    </a>  
+                                </div>
+                            </div>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        <!--End Category Masonary Grid-->
+    
+    </div><!--End Body Container-->
+</div><!--End Page Wrapper-->
+
+{%endblock%}
+
+
+
+{% block additionalfooter %}
+
+<script src="{{static('storefront/assets/js/vendor/photoswipe.min.js')}}"></script>
+<script>
+$(function(){
+    var $pswp = $('.pswp')[0],
+        image = [],
+        getItems = function(){
+            var items = [];
+            $('a.zoom').each(function() {
+                var $href = $(this).attr('href'),
+                    $size = $(this).data('size').split('x'),
+                    item  = { src: $href, w: $size[0], h: $size[1] }
+                items.push(item);
+            });
+            return items;
+        }
+    var items = getItems();
+    $('.zoom').click(function(event) {
+        event.preventDefault();
+        var $index = $(this).parents(".grid-lookbook").index();
+        $index = $index;
+        var options = {
+            index: $index,
+            bgOpacity: 0.9,
+            showHideOpacity: true
+        }
+        var lightBox = new PhotoSwipe($pswp, PhotoSwipeUI_Default, items, options);
+        lightBox.init();
+    });
+});
+</script>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+    <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--share" title="Share"></button>
+            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+            <div class="pswp__preloader">
+                <div class="pswp__preloader__icn">
+                    <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div>
+        </div>
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+        <div class="pswp__caption"><div class="pswp__caption__center"></div></div>
+    </div>
+ </div>
+</div>
+
+{%endblock%}

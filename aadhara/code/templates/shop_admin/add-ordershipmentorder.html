@@ -1,0 +1,146 @@
+{% extends 'shop_admin/base.html' %}
+
+{% block content %}
+
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+            <h5 class="content-header-title mb-0 d-inline-block">OrderShipment</h5>
+            <div class="breadcrumbs-top d-inline-block">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url('shopadmin:orderlist')}}">Order list</a>
+                        </li>
+                        <li class="breadcrumb-item"><a
+                                href="{% if order %}{{order.edit_url}}{% endif %}{% if object %}{{object.order.edit_url}}{% endif %}">Order</a>
+                        </li>
+                        {% if object %}
+                        <li class="breadcrumb-item active">Edit OrderShipment
+                        </li>
+                        {% else %}
+                        <li class="breadcrumb-item active">Add OrderShipment
+                        </li>
+                        {% endif %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-4 col-12 d-block d-md-none"><a
+                class="btn btn-warning btn-min-width float-md-right box-shadow-4 mr-1 mb-1"
+                href="chat-application.html"><i class="ft-mail"></i> Email</a></div>
+    </div>
+
+    <div class="content-body">
+        <!-- Basic form layout section start -->
+        <section id="horizontal-form-layouts">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" id="horz-layout-colored-controls">OrderShipment</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collpase show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                <p>Product : {% if order %} {{order}} {% endif %} {% if object %}
+                                        {{object.order}} {% endif %}</p>
+                                    <p>{% if form.non_field_error %}{{form.non_field_errors}}{% endif %}</p>
+                                </div>
+                                <form class="form form-horizontal" method="POST" novalidate>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                        {{form.order}}
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Shipment Company
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.shipment_company.errors|striptags}}</span>
+                                                            {{form.shipment_company}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Shipped On
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.shipped_on.errors|striptags}}</span>
+                                                            {{form.shipped_on}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Tracking No
+                                                        *
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.tracking_no.errors|striptags}}</span>
+                                                            {{form.tracking_no}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-start">
+                                                {% if object %} <a href="{{object.delete_url}}"
+                                                    class="btn btn-danger mr-1"><i class="ft-trash"></i>&nbsp; Delete
+                                                    record</a> {% endif %}
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-end">
+                                                {% if order %}
+                                                <a href="{{order.edit_url}}" class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                {% endif %}
+                                                {% if object %}
+                                                <a href="{{object.order.edit_url}}" class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                {% endif %}
+                                                <button type="submit" class="btn btn-primary mr-1">
+                                                    <i class="ft-plus"></i> Save and Add another
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> Save
+                                                </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

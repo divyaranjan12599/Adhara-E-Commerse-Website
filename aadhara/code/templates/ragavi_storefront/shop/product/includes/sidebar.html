@@ -1,0 +1,294 @@
+<div class="closeFilter d-block d-md-none d-lg-none"><i class="icon icon anm anm-times-l"></i></div>
+<div class="sidebar_tags">
+    {%if category.children.count()%}
+    <!--Categories-->
+    <div class="sidebar_widget categories filter-widget">
+        <div class="widget-title"><h2>Categories</h2></div>
+        <div class="widget-content" style="">
+            <ul class="sidebar_categories">
+                {%for child_leve1 in category.children.all().order_by('priority')%}
+                <li class="level1 sub-level"><a href="#" class="site-nav">{{child_leve1.name}}</a>
+                    {%if category.children.count()%}
+                    <ul class="sublinks" style="display: none;">
+                        {%for child_leve2 in child_leve1.children.all().order_by('priority')%}
+                        <a href="{{child_leve2.url()}}" class="site-nav">{{child_leve2.name}}</a>
+                        {%endfor%}
+                        <a href="{{child_leve1.url()}}" class="site-nav">View All of {{child_leve1.name}}</a>
+                    </ul>
+                    {%endif%}
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </div>
+    <!--Categories-->
+    {%endif%}
+    <!--Price Filter-->
+    <div class="sidebar_widget filterBox filter-widget">
+        <div class="widget-title">
+            <h2>Price</h2>
+        </div>
+        <form  method="GET" class="price-filter">
+            {% for k,v in request.GET.items() %}
+                {% if k != "sortby" and k != "page" %}
+                <input type="hidden" name="{{k}}" value="{{v}}" >
+                {%endif%}
+            {% endfor %}
+            <div id="slider-range"></div>
+            <div class="row">
+                <div class="col-6">
+                    <p class="no-margin"><input id="amount" type="text" name=amount></p>
+                </div>
+                <div class="col-6 text-right margin-25px-top">
+                    <button class="btn btn-secondary btn--small">filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--End Price Filter-->
+    <!--Size Swatches-->
+    <style>
+        .colour-colorDisplay {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+
+}
+    </style>
+    <div class="sidebar_widget filterBox filter-widget size-swacthes">
+        <div class="widget-title"><h2>Size</h2></div>
+        <div class="filter-color brand-filter">
+            <ul id="sizefilter">
+                {%for size in filters.sizes%}
+                <li>
+                  <input type="checkbox" name="size" value="{{size.value}}" onclick="runFilter()" id="size{{size.value}}" 
+                  {%if 'size' in selected_filters and size.value in selected_filters['size'] %}checked=true{%endif%}>
+                  <label for="size{{size.value}}"><span><span></span></span>{{size.value}}</label>
+                </li>
+                {%endfor%}
+            </ul>
+           
+        </div>
+    </div>
+    <!--End Size Swatches-->
+    <!--Color Swatches-->
+
+    <style>
+        .chiku{
+            background-color: #956209;
+        }
+        .olive{
+            background-color: olive;
+        }
+        .beige{
+            background-color: beige;
+        }
+        .white-black{
+            background: linear-gradient(90deg, rgba(253,255,254,1) 50%, rgba(5,9,4,1) 50%);
+        }
+        .multicolor{
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+        }
+        .white-red{
+            background: linear-gradient(90deg, rgba(253,255,254,1) 50%, red 50%);
+        }
+        .mustard{
+            background-color: #fedb58;
+        }
+        .light-blue{
+            background-color: #ADD8E6
+        }
+        .off-white{
+            background-color: #F8F0E3
+        }
+        .maroon{
+            background-color: #800000
+        }
+        .navy-blue{
+            background-color: #000080
+        }
+        .grey{
+            background-color: #808080
+        }
+
+        .off-white-brown{
+            background: linear-gradient(90deg, #F8F0E3 50%, brown 50%);
+        }
+        .light-green{
+            background-color: #90ee90
+        }
+        .mustered{
+            background-color: #fedb58
+        }
+        .off-white-red{
+            background: linear-gradient(90deg, #F8F0E3 50%, red 50%);
+        }
+        .light-orange{
+            background-color: #FFD580
+        }
+        .rama-blue{
+            background-color: #11BFA4
+        }
+        .rani{
+            background-color: #e73895
+        }
+        .gold-red{
+            background: linear-gradient(90deg, #d4af37 50%, red 50%);
+        }
+        .pink-coffee{
+            background: linear-gradient(90deg, pink 50%, #6f4e37 50%);
+        }
+        .peach{
+            background-color: #FFE5B4
+        }
+        .rama-green{
+            background-color: #0CE7DA
+        }
+        .pista-green{
+            background-color: #93C572
+        }
+        .rama{
+            background-color: #08E1A6
+        }
+        .yellow-brown{
+            background: linear-gradient(90deg, yellow 50%, brown 50%);
+        }
+        .coffee{
+            background-color: #6f4e37
+        }
+        .multicolor3{
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+        }
+        .multicolor2{
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+        }
+        .multicolor1{
+            background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+        }
+        .sea-green{
+            background-color: #2e8b57
+        }
+        .multicolor-8{
+            background: linear-gradient(90deg, #02a2c8 50%, #dd4f5f 50%);
+        }
+        .multicolor-9{
+            background: linear-gradient(90deg, #02a2c8 50%, #dd4f5f 50%);
+
+        }
+        .multicolor-0{
+            background: linear-gradient(90deg, #02a2c8 50%, #dd4f5f 50%);
+
+        }
+        .multicolor-11{
+            background: linear-gradient(90deg, #02a2c8 50%, #dd4f5f 50%);
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </style>
+    <div class="sidebar_widget filterBox filter-widget">
+        <div class="widget-title"><h2>Color</h2></div>
+        <div class="filter-color  brand-filter">
+                 
+           
+            <ul class="filter-color" id="colorfilter">
+                {%for color in filters.colors %}
+              
+                <li>
+                    
+                <input  style="margin-right:10px"  type="checkbox" name="color" value="{{color.value}}" onclick="runFilter()" id="color{{color.value}}"
+                    {%if 'color' in selected_filters and color.value in selected_filters['color'] %}checked=true{%endif%}>
+
+
+                
+
+                    <span  data-colorhex="{{color.value}}" class="colour-colorDisplay {{slug(color.value)}}" style=" vertical-align: middle;  margin: inherit;"></span>
+
+                    <label style="margin-left: 6px;" for="color{{color.value}}"><span><span></span></span>{{slug(color.value)}}</label>    
+
+                  </li>
+                {%endfor%}
+            </ul>
+            <a href="#!"><span style="color: royalblue;" id="next">Show More</span></a>
+            
+        </div>
+    </div>
+    <!--End Color Swatches-->
+   
+    
+</div>
+
+
+<script type="text/javascript">
+/*-----------------------------------
+ 13. Price Range Slider
+-------------------------------------*/
+
+function runFilter(){
+    var newUrl = window.location.href;
+    
+    var sizes=[];
+    $("#sizefilter input:checked").each(function(){
+        sizes.push($(this).val());
+    });
+    sizes_str='';
+    if(sizes.length > 0){
+        sizes_str=sizes.join('--');
+    }
+    var newUrl = addParamToURL(newUrl,'size',sizes_str)
+    
+
+    var colors=[];
+    $("#colorfilter input:checked").each(function(){
+        colors.push($(this).val());
+    });
+    var colors_str='';
+    if(colors.length > 0){
+        colors_str=colors.join('--');
+    }
+    var newUrl = addParamToURL(newUrl,'color',colors_str);
+
+    window.location.href=newUrl;
+}
+
+</script>

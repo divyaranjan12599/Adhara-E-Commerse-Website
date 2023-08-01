@@ -1,0 +1,148 @@
+<header class="header animated d-flex align-items-center ">
+    <div class="container">
+        <div class="row">
+            <!--Mobile Icons-->
+            <div class="col-4 col-sm-4 col-md-4 d-block d-lg-none mobile-icons">
+                <!--Mobile Toggle-->
+                <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+                    <i class="icon anm anm-times-l"></i>
+                    <i class="anm anm-bars-r"></i>
+                </button>
+                <!--End Mobile Toggle-->
+                <!--Search-->
+                <div class="site-search iconset">
+                    <i class="icon anm anm-search-l"></i>
+                </div>
+                <!--End Search-->
+            </div>
+            <!--Mobile Icons-->
+            <!--Desktop Logo-->
+            <div class="logo col-4 col-sm-4 col-md-4 col-lg-1 align-self-center">
+                <a href="/">
+                    <img src="{{static('logo/ad-logo.png')}}" alt="Aadhara" title="Aadhara Home" />
+                </a>
+            </div>
+            <!--End Desktop Logo-->
+            <div class="col-1 col-sm-1 col-md-1 col-lg-9 align-self-center d-menu-col">
+                <!--Desktop Menu-->
+                <nav class="grid__item" id="AccessibleNav">
+                    <ul id="siteNav" class="site-nav medium left hidearrow">
+                        <li class="lvl1 parent megamenu mdropdown"><a href="/">Home </a></li>
+                        <li class="lvl1 parent megamenu mdropdown"><a href="{{url('static_page',kwargs={'static_page': 'about-us'})}}">About us</a></li>
+                        <li class="lvl1 parent dropdown"><a href="#">Categories<i class="anm anm-angle-down-l"></i></a>
+                            <ul class="dropdown">
+                                {% for category in primary_categories %}
+                                    <li><a href="{{category.url()}}" class="site-nav">{{category.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    <li class="lvl1 parent megamenu mdropdown"><a href="{{url('core:gallery')}}">Gallery </a></li>
+                    <li class="lvl1 parent megamenu mdropdown"><a href="{{url('blogs:bloglist')}}">Blog </a></li>
+                        
+                    </ul>
+                </nav>
+                <!--End Desktop Menu-->
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-2 align-self-center icons-col text-right">
+                <!--Search-->
+                <div class="site-search iconset">
+                    <i class="icon anm anm-search-l"></i>
+                </div>
+                <div class="search-drawer">
+                    <div class="container">
+                        <span class="closeSearch anm anm-times-l"></span>
+                        <h3 class="title">What are you looking for?</h3>
+                        <div class="block block-search">
+                            <div class="block block-content">
+                                <form class="form minisearch" action="/search" method="get">
+                                    <label for="search" class="label"><span>Search</span></label>
+                                    <div class="control">
+                                        <div class="searchField">
+                                            <div class="input-box">
+                                                <input id="search" type="text" name="q" {%if query%} value="{{query}}" {%endif%} placeholder="Search for products, brands..." class="input-text">
+                                                <button type="submit"  title="Search" class="action search" ><i class="icon anm anm-search-l"></i></button>
+                                            </div>
+                                        </div>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Search-->
+                <!--Setting Dropdown-->
+                <div class="setting-link iconset">
+                    <i class="icon icon-user"></i>
+                </div>
+                
+                <div id="settingsBox">
+                    <div class="customer-links">
+                        {%if request.user.is_authenticated %}
+                        <p class="text-center">Hello, {{request.user.name}}</p>
+                        <p class="text-center"><a href="{{url('users:account')}}">My Account</a></p>
+                        
+                        <p class="text-center"><a href="{{url('logout')}}">Logout</a></p>
+                        
+                        {%else%}
+                        <p><a href="{{url('users:login')}}" class="btn">Login</a></p>
+                        <p class="text-center">New User? <a href="{{url('users:register')}}" class="register">Create an Account</a></p>
+                        <p class="text-center">Welcome to {{site_name}}!</p>
+                        {%endif%}
+                    </div>
+                    <div class="currency-picker">
+                        <span class="ttl">Select Currency</span>
+                        <ul id="currencies" class="cnrLangList">
+                        <li class="selected"><a href="#;">INR</a></li></ul>
+                    </div>
+                    <div class="language-picker">
+                        <span class="ttl">SELECT LANGUAGE</span>
+                        <ul id="language" class="cnrLangList">
+                            <li><a href="#">English</a></li>
+                        </ul>
+                    </div>
+                    </div>
+                <!--End Setting Dropdown-->
+                <!--Wishlist-->
+                <div class="wishlist-link iconset">
+                    <a href="{{url('users:wishlist')}}">
+                    <i class="icon anm anm-heart-l"></i>
+                    <span class="wishlist-count">{%if request.user.is_authenticated %}{{request.user.wishlist().count()}}{%else%}0{%endif%}</span>
+                </a>
+                </div>
+                <!--End Wishlist-->
+                <!--Minicart Dropdown-->
+                <div class="header-cart iconset">
+                    <a href="#" class="site-header__cart btn-minicart" data-toggle="modal" data-target="#minicart-drawer">
+                        <i class="icon anm anm-bag-l"></i>
+                        <span class="site-cart-count">{{cart.product_count()}}</span>
+                    </a>
+                </div>
+                <!--End Minicart Dropdown-->
+            </div>
+        </div>
+    </div>
+    
+</header>
+<!--End Header-->
+<!--Mobile Menu-->
+<div class="mobile-nav-wrapper" role="navigation">
+    <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i> Close Menu</div>
+    <ul id="MobileNav" class="mobile-nav">
+        <li class="lvl1 parent megamenu"><a href="/">Home <i class="anm anm-plus-l"></i></a>
+        
+    </li>
+    {% for category in primary_categories %}
+    <li class="lvl1 parent dropdown"><a href="#">{{category.name}}<i class="anm anm-plus-l"></i></a>
+        <ul class="dropdown">
+            {% for child_category in category.get_child_categories() %}
+                <li><a href="{{child_category.url}}" class="site-nav">{{child_category.name}}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+
+       
+    
+    </ul>
+</div>
+<!--End Mobile Menu-->

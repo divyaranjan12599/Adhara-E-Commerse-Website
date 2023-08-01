@@ -1,0 +1,156 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{%block subcontent%}
+<div id="subpage-content">
+    <!--Page Title with Image-->
+    <div class="page-title"><h1>Your Order #{{order.id}}</h1>
+    {%if order%}        
+    </div>
+    <!--End Page Title with Image-->
+    <div class="container">
+        <div class="row billing-fields">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 sm-margin-30px-bottom">
+                <div class="create-ac-content bg-light-gray padding-20px-all">
+                    <form>
+                        <fieldset>
+                            <h2 class="login-title mb-3">Order Details</h2>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="name"><b>Order ID</b></label>
+                                    <p>{{order.id}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Date</b></label>
+                                    <p>{{order.created.strftime('%d %B %Y')}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Status</b></label>
+                                    <p>{{order.get_order_status_display()}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Tatal Amount</b></label>
+                                    <p>Rs.{{order.total_price}}</p>
+                                </div>
+                                {%if order.is_paid_successfully() %}
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Payment Gateway</b></label>
+                                    <p>{{gateway.get_gateway_display()}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Payment Status</b></label>
+                                    <p>{{order.get_payment_status_display()}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="email"><b>Order Status</b></label>
+                                    <p>{{order.get_order_status_display()}}</p>
+                                </div>
+                                {%endif%}
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <h2 class="login-title mb-3">Customer Details</h2>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6">
+                                    <label for="input-company"><b>Name</b></label>
+                                    <p>{{order.name}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="mobile"><b>Email</b></label>
+                                    <p>{{order.email}}</p>
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                    <label for="mobile"><b>Mobile</b></label>
+                                    <p>{{order.mobile}}</p>
+                                </div>
+                                <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
+                                    <label for="address"><b>Address</b></label>
+                                    <p>{{order.shipping_address}}</p>
+                                </div>
+                            </div>
+                            
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="your-order-payment">
+                    <div class="your-order">
+                        <h2 class="order-title mb-4">Products</h2>
+                        <div class="table-responsive-sm order-table"> 
+                            <table class="bg-white table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Product Name</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for product in products%}
+                                        <tr>
+                                            <td class="text-left">{{product.name}}</td>
+                                            <td>{{product.quantity}}</td>
+                                            <td>{{product.total_price}}</td>
+                                        </tr>
+                                    {%endfor%}
+                                </tbody>
+                                <tfoot class="font-weight-600">
+                                    <tr>
+                                        <td colspan="2" class="text-right">Total</td>
+                                        <td>Rs.{{order.total_price}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    {%if not order.is_paid_successfully() %}
+                    <a href="{{order.retry_payment_url}}" class="btn" id="retrypaymentbtn">Retry Payment</a>
+                    {%endif%}
+                    {%if  order.is_cancellable() %}
+                    <a href="{{order.retry_payment_url}}" class="btn" id="retrypaymentbtn">Cancel Order</a>
+                    {%endif%}
+                    <a href="{{url('users:invoice')}}?order_id={{order.id}}" class="btn" >Invoice</a>
+                    
+                </div>
+               
+            </div>
+            {% if order.order_status in order_status %}
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="your-order-payment">
+                    <div class="your-order">
+                        <h2 class="order-title mb-4">Courier Details</h2>
+                        <div class="table-responsive-sm order-table"> 
+                            <table class="bg-white table table-bordered table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Shipping details</th>
+                                        <th>Value</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        <tr>
+                                            <td class="text-left">Shipping awb no</td>
+                                            <td>{{shipping_awb_no}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left">Shipping Courier Name</td>
+                                            <td>{{shipping_courier_name}}</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            {% endif %}
+        </div>
+        <!--End Main Content-->        
+    </div><!--End Body Container-->
+    {%else%}
+    <h3>No Order Present</h3>
+    {%endif%}
+</div>
+{%endblock%}

@@ -1,0 +1,125 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{% block subcontent %}
+<style type="text/css">
+    .table td {
+        padding: 0 5px;
+        text-align: left;
+    }
+
+</style>
+<div id="subpage-content">
+    <div class="container">
+                    <div class="row">
+                        <h2>Orders in Processing</h2>
+                            
+                        <div class="col-12 text-center">
+                            <table style="margin: auto;" class="table table-bordered table-striped" id="printSectionId1">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Order#</th>
+                                    <th>D.Id.</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Order Date</th>
+                                    <td>Invoice No</td>
+                                    <td>Invoice Date</td>
+                                    <th>Products</th>
+                                    <th>Amount</th>
+                                    <th>Length</th>
+                                    <th>Width</th>
+                                    <th>Height</th>
+                                    <th>Weight</th>
+                                    <th>Shiprocket Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td><a href="{{ url('admin:shop_order_change',kwargs={'object_id':order.id})}}"> {{order.id}}</a></td>
+                                            <td>{{order.user_id}}</td>
+                                            <td>{{order.user.name}}</td>
+                                            <td>{{order.user.email}}</td>
+                                            <td>{{order.user.mobile}}</td>
+                                            <td>{{order.created.strftime('%Y-%m-%d')}}</td>
+                                            <td>{{order.invoice_number}}</td>
+                                            <td>{{order.created.strftime('%Y-%m-%d')}}</td>
+                                            <td>{{order.products.all().count()}}</td>
+                                            <td>{{order.total_price}}</td>
+                                            <td>{{order.shipping_length()}}</td>
+                                            <td>{{order.shipping_width()}}</td>
+                                            <td>{{order.shipping_height()}}</td>
+                                            <td>{{order.shipping_weight()}}</td>
+                                            <td><span class="btn btn-primary mt-2" onclick="shiprocket('create',{{order.id}})">Create</span><br>
+                                                <span class="btn btn-primary mt-2" onclick="shiprocket('get_awb',{{order.id}})">Generate AWB</span>
+                                                <span class="btn btn-primary mt-2" onclick="shiprocket('pickup',{{order.id}})">Request for Pickup</span>
+                                                
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .dashboard -->
+
+
+{% endblock %}
+{% block additionalfooter  %}
+<script type="text/javascript">
+    {% if status_message %}
+        alert('{{status_message}}')
+    {%endif%}
+    $('form#payoutid').submit(function(){
+        $(this).find(':input[type=submit]').prop('disabled', true);
+    });
+
+    function shiprocket(action,order_id){
+        if(confirm("Are your sure want to " + action +" order in shiprocket for id:"+order_id+"?")){
+            if(action == "create"){
+                var url = "{{url('api:shiprocket_create_order')}}?order_id="+order_id;
+                shiprocket_create(url);
+            }
+            if(action == "get_awb"){
+                var url = "{{url('api:shiprocket_generate_awb')}}?order_id="+order_id;
+                shiprocket_create(url);
+            }
+            if(action == "pickup"){
+                var url = "{{url('api:shiprocket_request_pickup')}}?order_id="+order_id;
+                shiprocket_create(url);
+            }
+        }
+    }
+
+    function shiprocket_create(url){
+        
+        $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    alert(data);
+                    // parent.location.reload(true);
+                    // window.location.hre?f = window.location.href;
+                    return false;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    if(xhr.status==403) {
+                        if(confirm("You must be logged in, proceed?")){
+                        var newUrl = loginurl + "?next=" + window.location.href
+                        window.location.href = newUrl;
+                        }
+                    }
+                    if(xhr.status==400) {
+                        alert("Server Error, please try again.");
+                    }
+                },
+                cache: false,
+            });
+        return false;
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'shop_admin/base.html' %} 
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-8 col-12 mb-2">
+            <h3 class="content-header-title mb-0 d-inline-block">
+                Add DiscountCoupon Forms
+            </h3>
+        </div>
+    </div>
+
+    <div class="content-body">
+        <!-- Basic form layout section start -->
+        <section id="horizontal-form-layouts">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title" id="horz-layout-colored-controls">
+                                Add DiscountCoupon
+                            </h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a data-action="reload"><i class="ft-rotate-cw"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-action="expand"><i class="ft-maximize"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collpase show">
+                            <div class="card-body">
+                                <div class="card-text">
+                                    <p>
+                                        {% if form.non_field_error %}{{form.non_field_errors}}{%
+                                        endif %}
+                                    </p>
+                                </div>
+                                <form class="form form-horizontal" method="POST" novalidate>
+                                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput1">Code*
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.code.errors|striptags}}</span>
+                                                            {{form.code}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput2">
+                                                        Name*</label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span
+                                                                class="danger">{{form.name|striptags}}</span>
+                                                            {{form.name}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput3">Start Date*
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span
+                                                                class="danger">{{form.start_date.errors|striptags}}</span>
+                                                            {{form.start_date}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label class="col-md-3 label-control" for="userinput4">End Date*
+                                                    </label>
+                                                    <div class="col-md-9">
+                                                        <fieldset class="form-group position-relative">
+                                                            <span class="danger">{{form.end_date.errors|striptags}}</span>
+                                                            {{form.end_date}}
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Discount Value*</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span class="danger">{{form.discount_value.errors|striptags}}</span>
+                                                        {{form.discount_value}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput4">Discount Type*
+                                                </label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span class="danger">{{form.discount_type.errors|striptags}}</span>
+                                                        {{form.discount_type}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Max Discount</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span
+                                                            class="danger">{{form.max_discount.errors|striptags}}</span>
+                                                        {{form.max_discount}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Min Cart Amount</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span
+                                                            class="danger">{{form.min_cart_amount.errors|striptags}}</span>
+                                                        {{form.min_cart_amount}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Summary</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span
+                                                            class="danger">{{form.summary.errors|striptags}}</span>
+                                                        {{form.summary}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Discount Image</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span
+                                                            class="danger">{{form.discount_image.errors|striptags}}</span>
+                                                        {{form.discount_image}}
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-md-3 label-control" for="userinput3">Coupon Type</label>
+                                                <div class="col-md-9">
+                                                    <fieldset class="form-group position-relative">
+                                                        <span
+                                                            class="danger">{{form.coupon_type.errors|striptags}}</span>
+                                                        {{form.coupon_type}}
+                                                        {{form.coupon_type.help_text}}
+
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-start">
+                                                {% if object %}
+                                                <a href="{{object.delete_url}}" class="btn btn-danger mr-1"><i
+                                                        class="ft-trash"></i>&nbsp; Delete record</a>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-12"></div>
+                                        <div class="col-xl-4 col-lg-12">
+                                            <ul class="pagination justify-content-end">
+                                                <a href="{{url('shopadmin:discountcouponlist')}}"
+                                                    class="btn btn-danger mr-1">
+                                                    <i class="ft-x"></i> Cancel
+                                                </a>
+                                                <button type="submit" class="btn btn-primary mr-1">
+                                                    <i class="ft-plus"></i> Save and Add another
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> Save
+                                                </button>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}
+
+

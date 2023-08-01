@@ -1,0 +1,125 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+
+{%block subcontent%}    
+<div id="page-content"> 
+    
+    <div class="container">
+        <div class="page-title"><h1>Contact Us </h1></div>
+        {%if message%}
+                    <div class="alert alert-success">
+                        <span>{{message|safe}}</span>
+                    </div>
+                    {%endif%}
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8 mb-4">
+                <h2>Drop Us A Line</h2>
+                <p>Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500 </p>
+                <div class="formFeilds contact-form form-vertical">
+                  <form method="post" id="contact_form" class="contact-form">	
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                          <input type="text" id="ContactFormName" name="name" placeholder="Name" value="" required>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                        <div class="form-group">
+                        <input type="email" id="ContactFormEmail" name="email" placeholder="Email" value="" required>                        	
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                          <div class="form-group">
+                        <input required type="tel" id="ContactFormPhone" name="phone" pattern="[0-9\-]*" placeholder="Phone Number" value="">
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                          <div class="form-group">
+                        <input required type="text" id="ContactSubject" name="subject" placeholder="Subject" value="">
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                        <textarea required rows="10" id="ContactFormMessage" name="message" placeholder="Your Message"></textarea>
+                        </div>
+                    </div>  
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <input type="submit" class="btn" value="Send Message">
+                    </div>
+                 </div>
+                 </form>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="contact-details">
+                    <ul class="addressFooter">
+                        <li><i class="icon anm anm-map-marker-al"></i><p>{{contact_address}}</p></li>
+                        <li class="phone"><i class="icon anm anm-phone-s"></i><p>{{contact_mobile}}</p></li>
+                        <li class="email"><i class="icon anm anm-envelope-l"></i><p>{{contact_email}}</p></li>
+                    </ul>
+                    <hr>
+                    <div class="open-hours">
+                        <strong>Opening Hours</strong><br>
+                        Mon - Sat : 9am - 11pm<br>
+                        Sunday: 11am - 5pm
+                    </div>
+                    <hr>
+                  <ul class="list--inline site-footer__social-icons social-icons">
+                            {% if social_facebook %}
+                            <li><a href="{{social_facebook}}" target="_blank"><i class="icon icon-facebook"></i></a></li>
+                            {%endif%}
+                            {% if social_twitter %}
+                            <li><a href="{{social_facebook}}" target="_blank"><i class="icon icon-twitter"></i></a></li>
+                            {%endif%}
+                            {% if social_pinterest %}
+                            <li><a href="{{social_pinterest}}" target="_blank"><i class="icon icon-pinterest"></i></a></li>
+                            {%endif%}
+                            {% if social_instagram %}
+                            <li><a href="{{social_instagram}}" target="_blank"><i class="icon icon-instagram"></i></a></li>
+                            {%endif%}
+                            {% if social_youtube %}
+                            <li><a href="{{social_youtube}}" target="_blank"><i class="icon icon-youtube"></i></a></li>
+                            {%endif%}
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <div class="contact-us-page row">
+            <div class="col-12">
+                <div class=" map-section map">
+                <iframe src="https://www.google.com/maps/embed?pb=" allowfullscreen="" height="350"></iframe>
+                <div class=" container">
+                    <div class="row">
+                        <div class=" map-section__overlay-wrapper">
+                            <div class="map-section__overlay">
+                                <h3 class="h4">Our store</h3>
+                                <div class="rte-setting">
+                                    <p>{{contact_address}}</p>
+                                    <p>Mon - Fri, 10am - 9pm<br>Saturday, 11am - 9pm<br>Sunday, 11am - 5pm</p>
+                                </div>
+                                <p><a href="https://maps.google.com?daddr=80SpadinaAve,Toronto" class="btn btn--secondary btn--small" target="_blank">Get directions</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            </div>
+        </div>
+    </div><!--End Body Container-->
+</div><!--End Page Wrapper-->
+
+
+{% endblock %}
+
+ {% block additionalfooter %}
+
+
+ {% endblock %}

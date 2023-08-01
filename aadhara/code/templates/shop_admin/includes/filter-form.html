@@ -1,0 +1,25 @@
+                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton6" data-target="#collapseA1" data-toggle="collapse"
+                                        aria-expanded="true" aria-controls="collapseA1">
+                                        Filter By
+                                    </button>
+                                    {% if filter_form %}
+                                    <div id="collapseA1" class="dropdown-menu">
+                                        <form method="GET" class="p-1" style="width: 275px">
+                                            {% for field in filter_form %}
+                                            <div class="form-group">
+                                                <label>{{field.label}}</label>
+                                                {{field}}
+                                            </div>
+                                            {% endfor %}
+
+                                            <button type="submit" class="btn btn-primary">
+                                                Search
+                                            </button>
+                                            <button type="button"  onclick="window.location.href='{{reset_url}}'"
+                                                class="btn btn-danger mr-1">
+                                                <i class="ft-trash"></i>&nbsp;Clear
+                                            </button>
+                                        </form>
+                                    </div>
+                                    {% endif %}

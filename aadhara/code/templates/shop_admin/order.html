@@ -1,0 +1,99 @@
+{% extends 'shop_admin/base.html' %} {% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Orders</h3>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+            <div class="breadcrumbs-top float-md-right">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Orders</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- Base style table -->
+        <section id="base-style">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Orders list</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a data-action="collapse"><i class="ft-minus"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-action="reload"><i class="ft-rotate-cw"></i></a>
+                                    </li>
+                                    <li>
+                                        <a data-action="expand"><i class="ft-maximize"></i></a>
+                                    </li>
+
+                                    
+                                    {% set reset_url = url('shopadmin:orderlist') %}
+                                    {% include 'shop_admin/includes/filter-form.html' %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body card-dashboard">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered base-style">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>UserID</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th> 
+                                                <th>Created</th> 
+                                                <th>Products</th>
+                                                <th>Amount</th>
+                                                <th>Tax</th>
+                                                <th>Payment Status</th>
+                                                <th>Order Status </th>
+                                                <th>Invoice</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for o in order_list %}
+                                            <tr>
+                                                <td>
+                                                    <a href="{{o.edit_url}}">{{o.id}}</a>
+                                                </td>
+                                                <td> <a href="{{o.edit_url}}">{{o.name}}</a></td>
+                                                <td>{{o.user.id}}</td>
+                                                <td>
+                                                   {{o.email}}
+                                                </td>
+                                                <td>{{o.mobile}}</td>
+                                                <td>{{o.created}}</td>
+                                                <td>{{o.total_products()}}</td>
+                                                <td>{{o.get_total()}}</td>
+                                                <td>{{o.tax_calculated()}}</td>
+                                                <td>{{o.get_payment_status_display()}}</td>
+                                                <td>{{o.get_order_status_display()}}</td>
+                                                <td><a href="{{o.invoice_link()}}">{{o.invoice_number}}</a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% include 'shop_admin/includes/paginated.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--/ Base style table -->
+    </div>
+</div>
+{% endblock %}

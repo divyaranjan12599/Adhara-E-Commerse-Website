@@ -1,0 +1,199 @@
+{% extends 'shop_admin/base.html' %} {% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">Cart ID {{object.id}}</h3>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+            <div class="breadcrumbs-top float-md-right">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url('shopadmin:cartlist')}}">Cart</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- eCommerce & Project statistic -->
+        <section id="ecommerce-stats">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Cart UserName : <span class="text-primary">{{object.user}}</span> Cart User ID <span class="text-primary">{{object.user.id}}</span></h4>
+                            <a class="heading-elements-toggle">
+                                <i class="fa fa-ellipsis-v font-medium-3"></i>
+                            </a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right" href="{{url('shopadmin:cartlist')}}">Back</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body  pl-0 pr-0">
+                            <div id="todays-tasks">
+
+                                <div class="table-responsive">
+                                    <table class="table table-padded mb-0" id="product-summary">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Name</span>
+                                                </td>
+                                                <td class="text-truncate border-0  pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.name}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Status</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.get_status_display()}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Discount label</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_label}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Discount Amount</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_amount}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Discount Category</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_category}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Total without tax</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.total_without_tax}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Tax</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.tax}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Total Price</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.total_price}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Shipping Address</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.shipping_address}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Billing Address</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.billing_address}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Shipping tax rate</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.shipping_tax_rate}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Shipping Amount</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.shipping_amount}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Shipping tax </span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.shipping_tax}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >DiscountCoupon</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_coupon}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--/ eCommerce & Project statistic -->
+{% endblock %}

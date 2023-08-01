@@ -1,0 +1,68 @@
+{% extends "storefront/base.html" %}
+   {% block additional_header %}
+    <link rel="stylesheet" href="{{ static('assets/css/plugins/magnific-popup/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ static('assets/css/plugins/nouislider/nouislider.css') }}">
+   {% endblock %}
+
+{% block main %}
+<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+    <!--End Breadcrumbs-->
+    <div class="container">
+        <div class="page-title"><h1><span class="icon-box-icon">
+            <i class="icon-check "></i>
+        </span>Order Placed Successfully</h1></div>
+        <div class="dashboard-upper-info">
+            <div class="row align-items-center no-gutters">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+                <div class="d-single-info">
+                    <p>We will email you the next updates on your order.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-xl-12 col-lg-12 col-md-12 md-margin-20px-bottom">
+                <table class="table table-cart table-mobile">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                            {% for orderproduct in order.products.all() %}
+                                <tr>
+                                    <td class="product-col">
+                                        <div class="product">
+                                            <figure class="product-media">
+                                                <a  target="_BLANK" href="{{orderproduct.product.url()}}">
+                                                    <img src="{{ img_tag(alt='',url_only='yes', size="90/90",src=orderproduct.product_option.image().url)}}" height="100px" alt="Product image">
+                                                    <h4>{{orderproduct.product.name}}</h4>
+                                                    <p>{{orderproduct.product_option.subname}}</p>
+                                                </a>
+                                            </figure>
+                                       </div><!-- End .product -->
+                                    </td>
+                                    <td class="price-col">{{orderproduct.quantity}}</td>
+
+
+                                    <td class="total-col">{{orderproduct.total_price}}</td>
+                                </tr>
+                                {%endfor%}
+                       
+                    </tbody>
+                </table><!-- End .table table-wishlist -->
+            </div>
+        </div>
+    </div><!--End Body Container-->
+</div><!--End Page Wrapper-->
+{% endblock %}    

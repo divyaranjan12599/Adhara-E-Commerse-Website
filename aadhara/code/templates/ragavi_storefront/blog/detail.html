@@ -1,0 +1,39 @@
+{% extends 'storefront/base.html' %}
+{% block main %}
+    
+    <div id="page-content">        
+        <!--Body Container-->
+        <!--Breadcrumbs-->
+        <div class="breadcrumbs-wrapper">
+        	<div class="container">
+                {% include 'storefront/includes/breadcrumb.html' %}
+
+            </div>
+        </div>
+        <!--End Breadcrumbs-->
+		<div class="page-title"><h1>{{blog.title}}</h1></div>
+        <div class="container">
+			<div class="article mb-4"> 
+				<!-- Article Image --> 
+				<div class="article_featured-image"><img class="blur-up ls-is-cached lazyloaded" data-src="{{blog.thumbnail.url}}" style="width: 1200px;height: 500px;" src="{{blog.thumbnail.url}}" alt=""></div> 
+				<h1><a href="blog-left-sidebar.html">{{blog.title}}</a></h1>
+				<ul class="publish-detail">   
+					<li><i class="anm anm-user-al" aria-hidden="true"></i> Posted by: {{blog.author.name}}</li>                   
+					<li><i class="icon anm anm-clock-r"></i> <time datetime="2017-05-02">{{date_format(blog.created)}}</time></li>
+				</ul>
+				<p>Tags:
+					{% for tag in blog.tags.all()%}
+						#{{tag}}
+					{% endfor %}
+				</p>
+				<hr>
+				<div class="rte">
+					{{blog.content|safe}}
+				</div>
+				<hr>
+                {%include 'storefront/shop/product/includes/social_sharing.html' %}
+				
+			</div>
+		</div>
+    </div>
+{% endblock %}

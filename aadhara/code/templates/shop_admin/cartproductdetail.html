@@ -1,0 +1,165 @@
+{% extends 'shop_admin/base.html' %} {% block content %}
+<div class="content-wrapper">
+    <div class="content-wrapper-before"></div>
+    <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+            <h3 class="content-header-title">CartProduct ID {{object.id}}</h3>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+            <div class="breadcrumbs-top float-md-right">
+                <div class="breadcrumb-wrapper mr-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url('shopadmin:cartproductlist')}}">CartProduct</a>
+                        </li>
+                        
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        <!-- eCommerce & Project statistic -->
+        <section id="ecommerce-stats">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Cart : <span class="text-primary">{{object.cart}}</span></h4>
+                            <a class="heading-elements-toggle">
+                                <i class="fa fa-ellipsis-v font-medium-3"></i>
+                            </a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li>
+                                        <a class="btn btn-sm btn-danger box-shadow-2 round btn-min-width pull-right" href="{{url('shopadmin:cartproductlist')}}">Back</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body  pl-0 pr-0">
+                            <div id="todays-tasks">
+
+                                <div class="table-responsive">
+                                    <table class="table table-padded mb-0" id="product-summary">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Product</span>
+                                                </td>
+                                                <td class="text-truncate border-0  pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.product}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>ProductOption</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.product_option}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Tax Bracket</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.tax_bracket}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Quantity</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.quantity}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span>Unit Price</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.unit_price}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Amount</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.amount}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Discount lable</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_label}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Discount Amount</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.discount_amount}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Total without tax</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.total_without_tax}}</span>
+                                                </td>
+                                                
+                                                
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Tax </span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.tax}}</span>
+                                                </td>  
+                                            </tr>
+                                            <tr>
+                                                <td class="text-truncate border-0">
+                                                    <span >Total Price</span>
+                                                </td>
+                                                <td class="text-truncate border-0 pl-0">: 
+                                                    <span class="list-group-item-heading info">{{object.total_price}}</span>
+                                                </td>
+                                            </tr>  
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!--/ eCommerce & Project statistic -->
+{% endblock %}

@@ -1,0 +1,7 @@
+attrbute = Attribute.objects.get(name="size")
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="XS").update(priority=1)
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="S").update(priority=2)
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="M").update(priority=3)
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="L").update(priority=4)
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="XL").update(priority=5)
+ProductOptionAttributes.objects.filter(attribute=attrbute,value="XXL").update(priority=6)

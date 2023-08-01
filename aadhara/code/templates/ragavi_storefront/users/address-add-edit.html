@@ -1,0 +1,83 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{%block subcontent%}
+<div id="subpage-content">
+    <div class="container">
+        <!--Main Content-->
+        <!--Page Title with Image-->
+        <div class="page-title">
+            {%if address.id and address.user==request.user%}
+            <h1>Edit Address</h1>
+            {%else%}
+            <h1>Add Address</h1>
+            {%endif%}
+        </div>
+        <!--End Page Title with Image-->
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 box">	
+                <div class="mb-4">
+                    <form method="post" action="" accept-charset="UTF-8" class="contact-form">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">Name <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="text" name="name" value="{{address.name}}" required placeholder="Enter Full Name" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">Mobile <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="text" name="mobile" value="{{address.mobile}}" required placeholder="Enter Mobile" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">Email <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="email" name="email" value="{{address.email}}" required placeholder="Enter Email" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">Address <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="text" name="address" value="{{address.address}}" required placeholder="Enter Street" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">City <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="text" name="city" {%if address.id%} value="{{address.city}}" {%endif%} required placeholder="Enter City" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">State <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="text" name="state" {%if address.id%} value="{{address.state}}" {%endif%} required placeholder="Enter State" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="CustomerFirstName">Pincode <span class="required">*</span></label>
+                                        <input id="CustomerFirstName" type="number" name="pincode" value="{{address.pincode}}" required placeholder="Enter Pincode" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                    </div>
+                                </div>
+                                {%if address.id%}
+                                <input type="hidden" id="CustomerFirstName" name="address_id" value="{{address.id}}">
+                                {%endif%}
+                            </div>
+                            <div class="row">
+                                <div class="text-left col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="submit" class="btn mb-3" value="Submit">
+                                </div>
+                                <div class="text-right col-12 col-sm-12 col-md-6 col-lg-6">
+                                    <a href="{{url('users:account')}}">« Back To My Account</a>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--End Main Content-->
+    </div><!--End Body Container-->
+</div>
+{%endblock%}

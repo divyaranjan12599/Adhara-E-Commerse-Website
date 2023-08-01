@@ -1,0 +1,71 @@
+{% extends 'storefront/base.html' %}
+
+{%block main%}<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+        <!--Page Title with Image-->
+        <div class="page-title"><h1>Login</h1></div>
+        <!--End Page Title with Image-->
+        <div class="container">
+            <div class="row">
+				<!--Main Content-->
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 box">
+                	<h3>New Customers</h3>
+                    <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                    <a href="{{url('users:register')}}" class="btn">Create an account</a>
+                </div>
+				<div class="col-12 col-sm-12 col-md-6 col-lg-6 box">
+                	<div class="mb-4">
+                       <form method="post" action="" id="CustomerLoginForm" accept-charset="UTF-8" class="contact-form">	
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        {% if request.GET.get('next',False) %}
+                        <input type="hidden" name="next_page_url" value="{{request.GET.get('next')}}"> 
+                        {% endif %}
+                        <h3>Registered Customers</h3>
+                        {%if message%}
+                        <div class="alert alert-danger">
+                            <span>{{message|safe}}</span>
+                        </div>
+                        {%endif%}
+                    
+						<p>If you have an account with us, please log in.</p>
+                          <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="CustomerEmail">Email or Mobile <span class="required">*</span></label>
+                                    <input type="text" name="email_or_phone" placeholder="" required id="CustomerEmail" class="" autocorrect="off" autocapitalize="off" autofocus>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="CustomerPassword">Password <span class="required">*</span></label>
+                                    <input type="password" value="" name="password" required placeholder="" id="CustomerPassword" class="">                        	
+                                </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="text-left col-12 col-sm-12 col-md-12 col-lg-12">
+                                <input type="submit" class="btn mb-3" value="Sign In">
+                                <p class="mb-4">
+									<a href="{{url('users:forgotpassword')}}">Forgot your password?</a> &nbsp; | &nbsp;
+								    <a href="{{url('users:register')}}" id="customer_register_link">Create account</a>
+                                </p>
+                            </div>
+                         </div>
+                     </form>
+                    </div>
+               	</div>
+				<!--End Main Content-->
+			</div>
+        
+        </div><!--End Body Container-->
+        
+    </div><!--End Page Wrapper-->
+    
+
+{%endblock%}

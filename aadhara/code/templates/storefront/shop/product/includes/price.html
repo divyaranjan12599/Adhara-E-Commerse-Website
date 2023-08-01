@@ -1,0 +1,11 @@
+<!-- product price -->
+<div class="product-price">
+    <span class="product-price__price product-price__price-product-template product-price__sale product-price__sale--single">
+    <span id="ProductPrice-product-template"><span class="money">{{price_format(option.price)}}</span></span>
+    <s id="ComparePrice-product-template"><span class="money">{{option.price_display()}}</span></s>
+    <span class="discount-badge"> <span class="devider">|</span>&nbsp;
+    <span class="off">(<span>{{option.get_discount_percentage}}</span>% Off)</span>
+    </span>
+    </span>
+    </div>
+    <!-- End product price -->    

@@ -1,0 +1,58 @@
+{% extends 'storefront/users/my-account-base.html' %}
+
+{%block subcontent%}
+<div id="subpage-content" class="container">
+    <!--Page Title with Image-->
+    <div class="page-title"><h1>Your Orders</h1></div>
+    <!--End Page Title with Image-->
+    <div class="table-responsive">
+        {%if orders%}
+        <!-- My orders -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-center">Order No</th>
+                    <th class="text-center">Date</th>
+                    <th class="text-center">Total Amount</th>
+                    <th class="text-center">Payment Status</th>
+                    <th class="action"></th>
+                </tr>
+            </thead>
+            {%for order in orders%}
+            <tbody> 
+                <tr style="background-color: #a3a3a380;">
+                    <td class="text-center">{{order.id}}</td>
+                    <td class="text-center">{{order.created.strftime('%d %B %Y')}}</td>
+                    <td class="text-center">Rs.{{order.total_price}}</td>
+                    <td class="text-center">{{order.get_payment_status_display()}}</td>
+                    <td class="text-center"><a href="{{url('users:orderdetails')}}?order_id={{order.id}}">View Order Details</a></td>
+                </tr>
+                {%for product in products%}
+                    {%for p in product%}
+                        {%if p.order==order%}
+                            <tr>
+                                <td> </td>
+                                <td class="text-center">
+                                    {% with image=p.product_option.all_images()[0]%}
+                                    <img class="primary blur-up lazyload" data-src="{{ img_tag(alt='',url_only='yes', size="290/290",src=image.image.url)}}" width="45px"  src="{{ img_tag(alt='',url_only='yes', size="290/290",src=image.image.url)}}" alt="image" title="product">
+                                    {%endwith%}
+                                </td>
+                                <td class="text-center"><a href="{{p.product_option.url()}}">{{p.name}}</a></td>
+                                <td> </td>
+                            </tr>
+                        {%endif%}
+                    {%endfor%}    
+                {%endfor%}
+            </tbody>
+            {%endfor%}
+        </table>
+        {%else%}
+        <div id="addoredit" class="tab-pane fade active show">
+            <div class="text-center col-12 col-sm-12 col-md-6 col-lg-6">
+                <h5>You don't have any orders</h5>
+            </div>
+        </div>
+        {%endif%}
+    </div>
+</div>
+{%endblock%}

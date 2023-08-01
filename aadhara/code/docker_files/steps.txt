@@ -1,0 +1,2 @@
+docker build -t techvins/repo:adh_env . -f DockerfileEnv
+docker build -t techvins/repo:adh_prod . -f Dockerfile

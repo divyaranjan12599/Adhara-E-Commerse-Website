@@ -1,0 +1,16 @@
+{% extends 'storefront/base.html' %}
+
+{% block main %}
+<div id="page-content">
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+    
+    {% block subcontent %}
+    
+    {%endblock%}
+</div>
+{%endblock%}

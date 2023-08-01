@@ -1,0 +1,19 @@
+{% extends 'storefront/base.html' %}
+
+
+{%block main%}
+<div id="page-content">        
+    <!--Body Container-->
+    <!--Breadcrumbs-->
+    <div class="breadcrumbs-wrapper">
+        <div class="container">
+            {% include 'storefront/includes/breadcrumb.html' %}
+        </div>
+    </div>
+    <!--End Breadcrumbs-->
+    <div class="container">
+        <div class="page-title"><h1>{{title}}</h1></div>
+        {{page.content|safe}}
+    </div><!--End Body Container-->
+</div><!--End Page Wrapper-->
+{%endblock%}
